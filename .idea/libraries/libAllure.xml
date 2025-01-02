@@ -5,7 +5,6 @@
       <root url="jar://$PROJECT_DIR$/libAllure/allure-model-2.29.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/libAllure/allure-test-filter-2.29.0.jar!/" />
       <root url="jar://$PROJECT_DIR$/libAllure/allure-testng-2.29.0.jar!/" />
-      <root url="jar://$PROJECT_DIR$/libAllure/aspectjweaver-1.9.22.1.jar!/" />
       <root url="jar://$PROJECT_DIR$/libAllure/bsh-2.0b6.jar!/" />
     </CLASSES>
     <JAVADOC />

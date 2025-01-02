@@ -7,12 +7,16 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import pageUIs.orangeHRM.BasePagePUI;
 
 import java.time.Duration;
 import java.util.List;
 import java.util.Set;
 
 public class BasePage {
+    private long longTimeout = GlobalConstants.LONG_TIMEOUT;
+    private long shortTimeout = GlobalConstants.SHORT_TIMEOUT;
+
     public static BasePage getBasePage() {
         return new BasePage();
     }
@@ -487,7 +491,7 @@ public class BasePage {
         getWebElement(driver, uploadFileName).sendKeys(fullFileName);
     }
 
-    private long longTimeout = GlobalConstants.LONG_TIMEOUT;
-    private long shortTimeout = GlobalConstants.SHORT_TIMEOUT;
-
+    public boolean waitForIconLoadingInvisible(WebDriver driver) {
+        return waitForListElementInvisible(driver, BasePagePUI.LOADING_ICON);
+    }
 }

@@ -1,12 +1,5 @@
 package pageUIs.orangeHRM;
 
-import commons.BasePage;
-import org.openqa.selenium.WebDriver;
-
-public class DashboardPUI extends BasePage {
-    private WebDriver driver;
-
-    public DashboardPUI(WebDriver driver) {
-        this.driver = driver;
-    }
+public class DashboardPUI {
+    public static final String PIM_LINK = "xpath=//ul[@class='oxd-main-menu']//span[text()='PIM']";
 }

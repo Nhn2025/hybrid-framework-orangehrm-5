@@ -1,12 +1,5 @@
 package pageUIs.orangeHRM.pim.employee;
 
-import commons.BasePage;
-import org.openqa.selenium.WebDriver;
-
-public class EmployeeListPUI extends BasePage {
-    private WebDriver driver;
-
-    public EmployeeListPUI(WebDriver driver) {
-        this.driver = driver;
-    }
+public class EmployeeListPUI {
+    public final static String EMPLOYEE_NAV_LINK = "xpath=//div[@class='oxd-topbar-body']//a[text()='Add Employee']";
 }

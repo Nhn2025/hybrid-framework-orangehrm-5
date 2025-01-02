@@ -1,11 +1,10 @@
 package pageObjects.orangehrm.pim.employee;
 
 import commons.BasePage;
-import commons.GlobalConstants;
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.devtools.v85.page.Page;
 import pageObjects.orangehrm.PageGenerator;
-import pageUIs.orangeHRM.LoginPUI;
+import pageUIs.orangeHRM.pim.employee.AddNewEmployeePUI;
 
 public class AddNewEmployeePO extends BasePage {
     private WebDriver driver;
@@ -14,19 +13,28 @@ public class AddNewEmployeePO extends BasePage {
         this.driver = driver;
     }
 
-    public void enterToFirstNameTextbox() {
-
+    @Step("Enter to first name text box")
+    public void enterToFirstNameTextbox(String firstName) {
+        waitForElementVisible(driver, AddNewEmployeePUI.FIRSTNAME_TEXTBOX);
+        sendKeyToElement(driver, AddNewEmployeePUI.FIRSTNAME_TEXTBOX, firstName);
     }
 
-    public void enterToLastNameTextbox() {
-
+    @Step("Enter to last name text box")
+    public void enterToLastNameTextbox(String lastName) {
+        waitForElementVisible(driver, AddNewEmployeePUI.LASTNAME_TEXTBOX);
+        sendKeyToElement(driver, AddNewEmployeePUI.LASTNAME_TEXTBOX, lastName);
     }
 
+    @Step("Get employeeID")
     public String getEmployeeID() {
-        return null;
+        return getElementAtrribute(driver, AddNewEmployeePUI.EMPLOYEE_ID, "value");
     }
 
-    public PersonalDetailsPO clickToSaveButton() {
+    @Step("CLick to save button")
+    public PersonalDetailsPO clickToSaveButtonAtEmployeeContainer() {
+        waitForElementVisible(driver, AddNewEmployeePUI.SAVE_BUTTON_AT_ADD_EMPLOYEE_CONTAINER);
+        clickToElement(driver, AddNewEmployeePUI.SAVE_BUTTON_AT_ADD_EMPLOYEE_CONTAINER);
+        waitForIconLoadingInvisible(driver);
         return PageGenerator.getPersonalDetailsPage(driver);
     }
 }
