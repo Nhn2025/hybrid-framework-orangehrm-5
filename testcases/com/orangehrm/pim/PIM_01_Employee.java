@@ -1,6 +1,8 @@
 package com.orangehrm.pim;
 
 import commons.BaseTest;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import jdk.jfr.Description;
@@ -18,6 +20,8 @@ import pageObjects.orangehrm.pim.employee.AddNewEmployeePO;
 import pageObjects.orangehrm.pim.employee.EmployeeListPO;
 import pageObjects.orangehrm.pim.employee.PersonalDetailsPO;
 
+@Epic("Regression Tests")
+@Feature("Login Tests")
 public class PIM_01_Employee extends BaseTest {
     private WebDriver driver;
     private LoginPO loginPage;
@@ -25,8 +29,9 @@ public class PIM_01_Employee extends BaseTest {
     private EmployeeListPO employeeListPage;
     private PersonalDetailsPO personalDetailsPage;
     private AddNewEmployeePO addNewEmployeePage;
-    private String employeeID, firstName, lastName;
-    private String avatarImageName = "avatar.PNG";
+    private String employeeID, firstName, lastName, editFirstName, editLastName;
+    private String driverLicenseNumber, driverLicenseExpiryDate, nationality, maritalStatus, dateOfBirth, gender;
+    private String avatarImageName = "avatar.png";
 
     @Description("Login to application")
     @Severity(SeverityLevel.MINOR)
@@ -34,10 +39,20 @@ public class PIM_01_Employee extends BaseTest {
     @BeforeClass
     public void beforeClass(String browserName, String url) {
         driver = getBrowserDriver(browserName, url);
+        driver.manage().window().maximize();
         loginPage = PageGenerator.getLoginPage(driver);
 
         firstName = "John";
         lastName = "Wick";
+
+        editFirstName = "Donal";
+        editLastName = "Trump";
+        driverLicenseNumber = "012345667";
+        driverLicenseExpiryDate = "2023-09-10";
+        nationality = "Vietnamese";
+        maritalStatus = "Single";
+        dateOfBirth = "2003-09-10";
+        gender = "Male";
 
         loginPage.enterToUsernameTextbox();
         loginPage.enterToPasswordTextbox();
@@ -63,29 +78,49 @@ public class PIM_01_Employee extends BaseTest {
     public void Employee_02_Upload_Avatar() {
         personalDetailsPage.clickToEmployeeAvatarImage();
 
-        // Lấy ra height/ width của element (avatar) => A
         Dimension beforeUpload = personalDetailsPage.getAvatarSize();
-        // Dimension beforeUpload = driver.findElement(By.cssSelector("")).getSize().height;
 
         personalDetailsPage.uploadMultipleFiles(driver, avatarImageName);
 
         personalDetailsPage.clickToSaveButtonAtProfileContainer();
 
-        // 1
-        personalDetailsPage.isSuccessMessageDisplayed("Successfully Updated");
-        //div[contains(@class, 'oxd-toast-content')]/p[text()='Successfully Updated']
+        Assert.assertTrue(personalDetailsPage.isSuccessMessageDisplayed(driver));
 
-        // 2
-        personalDetailsPage.waitForIconLoadingInvisible(driver);
+        personalDetailsPage.waitAllLoadingIconInvisible(driver);
 
-        // 3
-        Assert.assertTrue(personalDetailsPage.isProfileAvatarUpdateSuccess());
+        Assert.assertTrue(personalDetailsPage.isProfileAvatarUpdateSuccess(beforeUpload));
     }
 
     @Description("Personal details")
     @Test
-    public void Employee_03_Personal_Details() {
+    public void Employee_03_Personal_Details() throws InterruptedException {
+        personalDetailsPage.openPersonalDetailPage();
 
+        personalDetailsPage.enterToFirstNameTextbox(editFirstName);
+        personalDetailsPage.enterToLastNameTextbox(editLastName);
+
+        Assert.assertEquals(personalDetailsPage.getEmployeeID(), employeeID);
+
+        personalDetailsPage.enterToDriverLicenseTextbox(driverLicenseNumber);
+        personalDetailsPage.enterToExpiryDateLicenseTextbox(driverLicenseExpiryDate);
+        personalDetailsPage.selectNationalityDropdown(nationality);
+        personalDetailsPage.selectMaritalStatusDropdown(maritalStatus);
+        personalDetailsPage.enterToDateOfBirthTextbox(dateOfBirth);
+        personalDetailsPage.selectGenderMaleRadioButton(gender);
+        personalDetailsPage.clickSaveButtonAtPersonalDetailContainer();
+
+        Assert.assertTrue(personalDetailsPage.isSuccessMessageDisplayed(driver));
+        personalDetailsPage.waitAllLoadingIconInvisible(driver);
+
+        Assert.assertEquals(personalDetailsPage.getFirstNameTextboxValue(), editFirstName);
+        Assert.assertEquals(personalDetailsPage.getLastNameTextboxValue(), editLastName);
+        Assert.assertEquals(personalDetailsPage.getEmployeeID(), employeeID);
+        Assert.assertEquals(personalDetailsPage.getDriverLicenseTextboxValue(), driverLicenseNumber);
+        Assert.assertEquals(personalDetailsPage.getExpiryDateLicenseTextboxValue(), driverLicenseExpiryDate);
+        Assert.assertEquals(personalDetailsPage.getNationalityDropdownValue(), nationality);
+        Assert.assertEquals(personalDetailsPage.getMaritalStatusDropdownValue(), maritalStatus);
+        Assert.assertEquals(personalDetailsPage.getDateOfBirthTextboxValue(), dateOfBirth);
+        Assert.assertTrue(personalDetailsPage.isGenderMaleRadioSelected(gender));
     }
 
     @Description("Contact details")

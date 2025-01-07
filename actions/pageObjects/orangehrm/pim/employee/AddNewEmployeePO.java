@@ -13,13 +13,13 @@ public class AddNewEmployeePO extends BasePage {
         this.driver = driver;
     }
 
-    @Step("Enter to first name text box")
+    @Step("Enter to first name text box with value: {0}")
     public void enterToFirstNameTextbox(String firstName) {
         waitForElementVisible(driver, AddNewEmployeePUI.FIRSTNAME_TEXTBOX);
         sendKeyToElement(driver, AddNewEmployeePUI.FIRSTNAME_TEXTBOX, firstName);
     }
 
-    @Step("Enter to last name text box")
+    @Step("Enter to last name text box with value: {0}")
     public void enterToLastNameTextbox(String lastName) {
         waitForElementVisible(driver, AddNewEmployeePUI.LASTNAME_TEXTBOX);
         sendKeyToElement(driver, AddNewEmployeePUI.LASTNAME_TEXTBOX, lastName);
@@ -27,14 +27,14 @@ public class AddNewEmployeePO extends BasePage {
 
     @Step("Get employeeID")
     public String getEmployeeID() {
-        return getElementAtrribute(driver, AddNewEmployeePUI.EMPLOYEE_ID, "value");
+        return getElementAttribute(driver, AddNewEmployeePUI.EMPLOYEE_ID, "value");
     }
 
     @Step("CLick to save button")
     public PersonalDetailsPO clickToSaveButtonAtEmployeeContainer() {
         waitForElementVisible(driver, AddNewEmployeePUI.SAVE_BUTTON_AT_ADD_EMPLOYEE_CONTAINER);
         clickToElement(driver, AddNewEmployeePUI.SAVE_BUTTON_AT_ADD_EMPLOYEE_CONTAINER);
-        waitForIconLoadingInvisible(driver);
+        waitAllLoadingIconInvisible(driver);
         return PageGenerator.getPersonalDetailsPage(driver);
     }
 }

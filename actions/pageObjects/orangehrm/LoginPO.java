@@ -29,7 +29,7 @@ public class LoginPO extends BasePage {
     public DashboardPO clickToLoginButton() {
         waitForElementClickable(driver, LoginPUI.LOGIN_BUTTON);
         clickToElement(driver, LoginPUI.LOGIN_BUTTON);
-        waitForIconLoadingInvisible(driver);
+        waitAllLoadingIconInvisible(driver);
         return PageGenerator.getDashboardPage(driver);
     }
 }

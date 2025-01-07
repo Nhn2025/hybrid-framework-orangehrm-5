@@ -1,4 +1,4 @@
-package reportConfig;
+package reportConfigs;
 
 import commons.BaseTest;
 import org.openqa.selenium.OutputType;

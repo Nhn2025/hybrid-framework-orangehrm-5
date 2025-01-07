@@ -4,13 +4,13 @@ import commons.BasePage;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import pageObjects.orangehrm.PageGenerator;
-import pageUIs.orangeHRM.DashboardPUI;
 import pageUIs.orangeHRM.pim.employee.EmployeeListPUI;
 
-public class EmployeeListPO extends BasePage {
+public class EmployeeListPO extends EmployeeTabs {
     private WebDriver driver;
 
     public EmployeeListPO(WebDriver driver) {
+        super(driver);
         this.driver = driver;
     }
 
@@ -18,7 +18,7 @@ public class EmployeeListPO extends BasePage {
     public AddNewEmployeePO clickToAddEmployeeButton() {
         waitForElementClickable(driver, EmployeeListPUI.EMPLOYEE_NAV_LINK);
         clickToElement(driver, EmployeeListPUI.EMPLOYEE_NAV_LINK);
-        waitForIconLoadingInvisible(driver);
+        waitAllLoadingIconInvisible(driver);
         return PageGenerator.getAddNewEmployeePage(driver);
     }
 }

@@ -2,10 +2,7 @@ package pageObjects.orangehrm;
 
 import org.openqa.selenium.WebDriver;
 import pageObjects.orangehrm.pim.configuration.*;
-import pageObjects.orangehrm.pim.employee.AddNewEmployeePO;
-import pageObjects.orangehrm.pim.employee.ContactDetailsPO;
-import pageObjects.orangehrm.pim.employee.EmployeeListPO;
-import pageObjects.orangehrm.pim.employee.PersonalDetailsPO;
+import pageObjects.orangehrm.pim.employee.*;
 import pageObjects.orangehrm.pim.reports.AddNewReportPO;
 
 public class PageGenerator {
@@ -55,5 +52,13 @@ public class PageGenerator {
 
     public static TerminationReasonsPO getTerminationReasonsPage(WebDriver driver) {
         return new TerminationReasonsPO(driver);
+    }
+
+    public static ContactDetailsPO getContactDetailsPOPage(WebDriver driver) {
+        return new ContactDetailsPO(driver);
+    }
+
+    public static EmergencyContactsPO getEmergencyContactsPage(WebDriver driver) {
+        return new EmergencyContactsPO(driver);
     }
 }
