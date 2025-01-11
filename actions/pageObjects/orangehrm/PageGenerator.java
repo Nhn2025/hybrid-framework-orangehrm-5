@@ -54,10 +54,6 @@ public class PageGenerator {
         return new TerminationReasonsPO(driver);
     }
 
-    public static ContactDetailsPO getContactDetailsPOPage(WebDriver driver) {
-        return new ContactDetailsPO(driver);
-    }
-
     public static EmergencyContactsPO getEmergencyContactsPage(WebDriver driver) {
         return new EmergencyContactsPO(driver);
     }

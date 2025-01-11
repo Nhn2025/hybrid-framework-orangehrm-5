@@ -16,18 +16,18 @@
         </classes>
     </test>
 
-    <test name="Run on Chrome browser" preserve-order="true">
-        <parameter name="browser" value="chrome"/>
-        <classes>
-            <class name="com.orangehrm.pim.PIM_01_Employee"></class>
-        </classes>
-    </test>
+<!--    <test name="Run on Chrome browser" preserve-order="true">-->
+<!--        <parameter name="browser" value="chrome"/>-->
+<!--        <classes>-->
+<!--            <class name="com.orangehrm.pim.PIM_01_Employee"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
 
-    <test name="Run on Edge browser" preserve-order="true">
-        <parameter name="browser" value="edge"/>
-        <classes>
-            <class name="com.orangehrm.pim.PIM_01_Employee"></class>
-        </classes>
-    </test>
+<!--    <test name="Run on Edge browser" preserve-order="true">-->
+<!--        <parameter name="browser" value="edge"/>-->
+<!--        <classes>-->
+<!--            <class name="com.orangehrm.pim.PIM_01_Employee"></class>-->
+<!--        </classes>-->
+<!--    </test>-->
 
 </suite>

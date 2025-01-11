@@ -17,6 +17,7 @@ import pageObjects.orangehrm.DashboardPO;
 import pageObjects.orangehrm.LoginPO;
 import pageObjects.orangehrm.PageGenerator;
 import pageObjects.orangehrm.pim.employee.AddNewEmployeePO;
+import pageObjects.orangehrm.pim.employee.ContactDetailsPO;
 import pageObjects.orangehrm.pim.employee.EmployeeListPO;
 import pageObjects.orangehrm.pim.employee.PersonalDetailsPO;
 
@@ -29,8 +30,10 @@ public class PIM_01_Employee extends BaseTest {
     private EmployeeListPO employeeListPage;
     private PersonalDetailsPO personalDetailsPage;
     private AddNewEmployeePO addNewEmployeePage;
+    private ContactDetailsPO contactDetailsPO;
     private String employeeID, firstName, lastName, editFirstName, editLastName;
     private String driverLicenseNumber, driverLicenseExpiryDate, nationality, maritalStatus, dateOfBirth, gender;
+    private String streetName, cityName, provinceName, postalCode, countryName, phoneNumber, email;
     private String avatarImageName = "avatar.png";
 
     @Description("Login to application")
@@ -53,6 +56,14 @@ public class PIM_01_Employee extends BaseTest {
         maritalStatus = "Single";
         dateOfBirth = "2003-09-10";
         gender = "Male";
+        postalCode = "900000";
+
+        streetName = "30/04 Street";
+        cityName = "Can Tho";
+        provinceName = "Ninh Kieu";
+        countryName = "Viet Nam";
+        phoneNumber = "0388653728";
+        email = getEmailRandom();
 
         loginPage.enterToUsernameTextbox();
         loginPage.enterToPasswordTextbox();
@@ -126,7 +137,27 @@ public class PIM_01_Employee extends BaseTest {
     @Description("Contact details")
     @Test
     public void Employee_04_Contact_Details() {
+        contactDetailsPO = personalDetailsPage.openContactDetailsPage();
 
+        contactDetailsPO.enterToStreetTextbox(streetName);
+        contactDetailsPO.enterToCityTextbox(cityName);
+        contactDetailsPO.enterToProvinceTextbox(provinceName);
+        contactDetailsPO.enterToPostalCodeTextbox(postalCode);
+        contactDetailsPO.selectCountryDropdown(countryName);
+        contactDetailsPO.enterToHomeTelephoneTextbox(phoneNumber);
+        contactDetailsPO.enterToWorkEmailTextbox(email);
+        contactDetailsPO.clickSaveButtonAtContactDetailContainer();
+
+        Assert.assertTrue(contactDetailsPO.isSuccessMessageDisplayed(driver));
+        contactDetailsPO.waitAllLoadingIconInvisible(driver);
+
+        Assert.assertEquals(contactDetailsPO.getStreetTextboxValue(), streetName);
+        Assert.assertEquals(contactDetailsPO.getCityTextboxValue(), cityName);
+        Assert.assertEquals(contactDetailsPO.getProvinceTextboxValue(), provinceName);
+        Assert.assertEquals(contactDetailsPO.getPostalCodeTextboxValue(), postalCode);
+        Assert.assertEquals(contactDetailsPO.getCountryDropdownValue(), countryName);
+        Assert.assertEquals(contactDetailsPO.getHomeTelephoneTextboxValue(), phoneNumber);
+        Assert.assertEquals(contactDetailsPO.getWorkEmailTextbox(), email);
     }
 
     @Description("Emergency details")
