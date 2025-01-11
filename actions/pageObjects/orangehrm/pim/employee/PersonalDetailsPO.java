@@ -26,7 +26,7 @@ public class PersonalDetailsPO extends EmployeeTabs {
     }
 
     @Step("Profile avatar is updated successfully")
-    public boolean isProfileAvatarUpdateSuccess(Dimension beforeUpload) {
+    public boolean isProfileAvatarUpdatedSuccess(Dimension beforeUpload) {
         waitForElementVisible(driver, PersonalDetailsPUI.EMPLOYEE_IMAGE);
         Dimension afterUpload = getAvatarSize();
         return !(beforeUpload.equals(afterUpload));

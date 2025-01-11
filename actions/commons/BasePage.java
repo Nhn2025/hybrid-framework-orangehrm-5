@@ -524,9 +524,15 @@ public class BasePage {
         return waitForListElementInvisible(driver, BasePagePUI.LOADING_ICON);
     }
 
-    @Step("Success message is displayed")
-    public boolean isSuccessMessageDisplayed(WebDriver driver) {
-        waitForElementVisible(driver, BasePagePUI.SUCCESS_MESSAGE);
-        return isElementDisplayed(driver, BasePagePUI.SUCCESS_MESSAGE);
+    @Step("Update success message is displayed")
+    public boolean isUpdateSuccessMessageDisplayed(WebDriver driver) {
+        waitForElementVisible(driver, BasePagePUI.UPDATE_SUCCESS_MESSAGE);
+        return isElementDisplayed(driver, BasePagePUI.UPDATE_SUCCESS_MESSAGE);
+    }
+
+    @Step("Save success message is displayed")
+    public boolean isSaveSuccessMessageDisplayed(WebDriver driver) {
+        waitForElementVisible(driver, BasePagePUI.SAVE_SUCCESS_MESSAGE);
+        return isElementDisplayed(driver, BasePagePUI.SAVE_SUCCESS_MESSAGE);
     }
 }

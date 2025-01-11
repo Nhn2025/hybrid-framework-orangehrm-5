@@ -16,10 +16,7 @@ import org.testng.annotations.Test;
 import pageObjects.orangehrm.DashboardPO;
 import pageObjects.orangehrm.LoginPO;
 import pageObjects.orangehrm.PageGenerator;
-import pageObjects.orangehrm.pim.employee.AddNewEmployeePO;
-import pageObjects.orangehrm.pim.employee.ContactDetailsPO;
-import pageObjects.orangehrm.pim.employee.EmployeeListPO;
-import pageObjects.orangehrm.pim.employee.PersonalDetailsPO;
+import pageObjects.orangehrm.pim.employee.*;
 
 @Epic("Regression Tests")
 @Feature("Login Tests")
@@ -31,10 +28,13 @@ public class PIM_01_Employee extends BaseTest {
     private PersonalDetailsPO personalDetailsPage;
     private AddNewEmployeePO addNewEmployeePage;
     private ContactDetailsPO contactDetailsPO;
+    private EmergencyContactsPO emergencyContactsPO;
     private String employeeID, firstName, lastName, editFirstName, editLastName;
     private String driverLicenseNumber, driverLicenseExpiryDate, nationality, maritalStatus, dateOfBirth, gender;
     private String streetName, cityName, provinceName, postalCode, countryName, phoneNumber, email;
-    private String avatarImageName = "avatar.png";
+    private String nameEmergency, relationship, homeTelephone;
+    private String avatarImageName = "doraemon.png";
+    private String attachmentsImageName = "nobita.png";
 
     @Description("Login to application")
     @Severity(SeverityLevel.MINOR)
@@ -64,6 +64,10 @@ public class PIM_01_Employee extends BaseTest {
         countryName = "Viet Nam";
         phoneNumber = "0388653728";
         email = getEmailRandom();
+
+        nameEmergency = "Duong Van An";
+        relationship = "Brother";
+        homeTelephone = "03667820298";
 
         loginPage.enterToUsernameTextbox();
         loginPage.enterToPasswordTextbox();
@@ -95,11 +99,11 @@ public class PIM_01_Employee extends BaseTest {
 
         personalDetailsPage.clickToSaveButtonAtProfileContainer();
 
-        Assert.assertTrue(personalDetailsPage.isSuccessMessageDisplayed(driver));
+        Assert.assertTrue(personalDetailsPage.isUpdateSuccessMessageDisplayed(driver));
 
         personalDetailsPage.waitAllLoadingIconInvisible(driver);
 
-        Assert.assertTrue(personalDetailsPage.isProfileAvatarUpdateSuccess(beforeUpload));
+        Assert.assertTrue(personalDetailsPage.isProfileAvatarUpdatedSuccess(beforeUpload));
     }
 
     @Description("Personal details")
@@ -120,7 +124,7 @@ public class PIM_01_Employee extends BaseTest {
         personalDetailsPage.selectGenderMaleRadioButton(gender);
         personalDetailsPage.clickSaveButtonAtPersonalDetailContainer();
 
-        Assert.assertTrue(personalDetailsPage.isSuccessMessageDisplayed(driver));
+        Assert.assertTrue(personalDetailsPage.isUpdateSuccessMessageDisplayed(driver));
         personalDetailsPage.waitAllLoadingIconInvisible(driver);
 
         Assert.assertEquals(personalDetailsPage.getFirstNameTextboxValue(), editFirstName);
@@ -148,7 +152,7 @@ public class PIM_01_Employee extends BaseTest {
         contactDetailsPO.enterToWorkEmailTextbox(email);
         contactDetailsPO.clickSaveButtonAtContactDetailContainer();
 
-        Assert.assertTrue(contactDetailsPO.isSuccessMessageDisplayed(driver));
+        Assert.assertTrue(contactDetailsPO.isUpdateSuccessMessageDisplayed(driver));
         contactDetailsPO.waitAllLoadingIconInvisible(driver);
 
         Assert.assertEquals(contactDetailsPO.getStreetTextboxValue(), streetName);
@@ -163,7 +167,30 @@ public class PIM_01_Employee extends BaseTest {
     @Description("Emergency details")
     @Test
     public void Employee_05_Emergency_Details() {
+        emergencyContactsPO = contactDetailsPO.openEmergencyContactsPage();
 
+        emergencyContactsPO.clickAddButtonAtAssignedEmergencyContacts();
+        emergencyContactsPO.enterToNameTextbox(nameEmergency);
+        emergencyContactsPO.enterToRelationshipTextbox(relationship);
+        emergencyContactsPO.enterToHomeTelephoneTextbox(homeTelephone);
+        emergencyContactsPO.clickToSaveButtonAtEmergencyDetailsContainer();
+
+        Assert.assertTrue(emergencyContactsPO.isSaveSuccessMessageDisplayed(driver));
+        emergencyContactsPO.waitAllLoadingIconInvisible(driver);
+
+        Assert.assertTrue(emergencyContactsPO.isNameTextboxUpdatedSuccess(homeTelephone));
+        Assert.assertTrue(emergencyContactsPO.isRelationshipTextboxUpdatedSuccess(relationship));
+        Assert.assertTrue(emergencyContactsPO.isHomeTelephoneTextboxUpdatedSuccess(homeTelephone));
+
+        emergencyContactsPO.clickAddButtonAtAttachments();
+        emergencyContactsPO.uploadMultipleFiles(driver, attachmentsImageName);
+
+        emergencyContactsPO.clickToSaveButtonAtEmergencyDetailsContainer();
+
+        Assert.assertTrue(emergencyContactsPO.isSaveSuccessMessageDisplayed(driver));
+        emergencyContactsPO.waitAllLoadingIconInvisible(driver);
+
+        Assert.assertTrue(emergencyContactsPO.isAttachmentsImageUpdatedSuccess(attachmentsImageName));
     }
 
     @Description("Assigned dependents")
