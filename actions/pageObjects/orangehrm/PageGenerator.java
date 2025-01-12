@@ -1,5 +1,6 @@
 package pageObjects.orangehrm;
 
+import com.beust.ah.A;
 import org.openqa.selenium.WebDriver;
 import pageObjects.orangehrm.pim.configuration.*;
 import pageObjects.orangehrm.pim.employee.*;
@@ -56,5 +57,29 @@ public class PageGenerator {
 
     public static EmergencyContactsPO getEmergencyContactsPage(WebDriver driver) {
         return new EmergencyContactsPO(driver);
+    }
+
+    public static AssignedDependentsPO getAssignedDependentsPage(WebDriver driver) {
+        return new AssignedDependentsPO(driver);
+    }
+
+    public static ImmigrationPO getImmigrationPage(WebDriver driver) {
+        return new ImmigrationPO(driver);
+    }
+
+    public static JobPO getJobPage(WebDriver driver) {
+        return new JobPO(driver);
+    }
+
+    public static SalaryPO getSalaryPage(WebDriver driver) {
+        return new SalaryPO(driver);
+    }
+
+    public static ReportToPO getReportToPage(WebDriver driver) {
+        return new ReportToPO(driver);
+    }
+
+    public static QualificationsPO getQualificationsPage(WebDriver driver) {
+        return new QualificationsPO(driver);
     }
 }

@@ -29,12 +29,15 @@ public class PIM_01_Employee extends BaseTest {
     private AddNewEmployeePO addNewEmployeePage;
     private ContactDetailsPO contactDetailsPO;
     private EmergencyContactsPO emergencyContactsPO;
+    private AssignedDependentsPO assignedDependentsPO;
     private String employeeID, firstName, lastName, editFirstName, editLastName;
     private String driverLicenseNumber, driverLicenseExpiryDate, nationality, maritalStatus, dateOfBirth, gender;
     private String streetName, cityName, provinceName, postalCode, countryName, phoneNumber, email;
-    private String nameEmergency, relationship, homeTelephone;
+    private String emergencyName, emergencyRelationship, emergencyHomeTelephone;
+    private String dependentsName, dependentsRelationship, dependentsDateOfBirth;
     private String avatarImageName = "doraemon.png";
-    private String attachmentsImageName = "nobita.png";
+    private String emergencyAttachmentsImageName = "nobita.png";
+    private String dependentsAttachmentsImageName = "dorami.png";
 
     @Description("Login to application")
     @Severity(SeverityLevel.MINOR)
@@ -45,16 +48,16 @@ public class PIM_01_Employee extends BaseTest {
         driver.manage().window().maximize();
         loginPage = PageGenerator.getLoginPage(driver);
 
-        firstName = "John";
-        lastName = "Wick";
+        firstName = "Thu";
+        lastName = "Duong";
 
-        editFirstName = "Donal";
-        editLastName = "Trump";
+        editFirstName = "Dung";
+        editLastName = "Duong";
         driverLicenseNumber = "012345667";
         driverLicenseExpiryDate = "2023-09-10";
         nationality = "Vietnamese";
         maritalStatus = "Single";
-        dateOfBirth = "2003-09-10";
+        dateOfBirth = "1995-09-10";
         gender = "Male";
         postalCode = "900000";
 
@@ -65,9 +68,13 @@ public class PIM_01_Employee extends BaseTest {
         phoneNumber = "0388653728";
         email = getEmailRandom();
 
-        nameEmergency = "Duong Van An";
-        relationship = "Brother";
-        homeTelephone = "03667820298";
+        emergencyName = "Duong Van An";
+        emergencyRelationship = "Brother";
+        emergencyHomeTelephone = "03667820298";
+
+        dependentsName = "Vo Thanh Hoa";
+        dependentsRelationship = "Child";
+        dependentsDateOfBirth = "2010-09-10";
 
         loginPage.enterToUsernameTextbox();
         loginPage.enterToPasswordTextbox();
@@ -170,33 +177,56 @@ public class PIM_01_Employee extends BaseTest {
         emergencyContactsPO = contactDetailsPO.openEmergencyContactsPage();
 
         emergencyContactsPO.clickAddButtonAtAssignedEmergencyContacts();
-        emergencyContactsPO.enterToNameTextbox(nameEmergency);
-        emergencyContactsPO.enterToRelationshipTextbox(relationship);
-        emergencyContactsPO.enterToHomeTelephoneTextbox(homeTelephone);
+        emergencyContactsPO.enterToNameTextbox(emergencyName);
+        emergencyContactsPO.enterToRelationshipTextbox(emergencyRelationship);
+        emergencyContactsPO.enterToHomeTelephoneTextbox(emergencyHomeTelephone);
         emergencyContactsPO.clickToSaveButtonAtEmergencyDetailsContainer();
 
         Assert.assertTrue(emergencyContactsPO.isSaveSuccessMessageDisplayed(driver));
         emergencyContactsPO.waitAllLoadingIconInvisible(driver);
 
-        Assert.assertTrue(emergencyContactsPO.isNameTextboxUpdatedSuccess(homeTelephone));
-        Assert.assertTrue(emergencyContactsPO.isRelationshipTextboxUpdatedSuccess(relationship));
-        Assert.assertTrue(emergencyContactsPO.isHomeTelephoneTextboxUpdatedSuccess(homeTelephone));
+        Assert.assertTrue(emergencyContactsPO.isNameTextboxUpdatedSuccess(emergencyName));
+        Assert.assertTrue(emergencyContactsPO.isRelationshipTextboxUpdatedSuccess(emergencyRelationship));
+        Assert.assertTrue(emergencyContactsPO.isHomeTelephoneTextboxUpdatedSuccess(emergencyHomeTelephone));
 
         emergencyContactsPO.clickAddButtonAtAttachments();
-        emergencyContactsPO.uploadMultipleFiles(driver, attachmentsImageName);
+        emergencyContactsPO.uploadMultipleFiles(driver, emergencyAttachmentsImageName);
 
         emergencyContactsPO.clickToSaveButtonAtEmergencyDetailsContainer();
 
         Assert.assertTrue(emergencyContactsPO.isSaveSuccessMessageDisplayed(driver));
         emergencyContactsPO.waitAllLoadingIconInvisible(driver);
 
-        Assert.assertTrue(emergencyContactsPO.isAttachmentsImageUpdatedSuccess(attachmentsImageName));
+        Assert.assertTrue(emergencyContactsPO.isAttachmentsImageUpdatedSuccess(emergencyAttachmentsImageName));
     }
 
     @Description("Assigned dependents")
     @Test
     public void Employee_06_Assigned_Dependents() {
+        assignedDependentsPO = emergencyContactsPO.openAssignedDependentsPage();
 
+        assignedDependentsPO.clickAddButtonAtAssignedDependents();
+        assignedDependentsPO.enterToNameTextbox(dependentsName);
+        assignedDependentsPO.selectRelationshipDropdown(dependentsRelationship);
+        assignedDependentsPO.enterToDateOfBirthTextbox(dependentsDateOfBirth);
+        assignedDependentsPO.clickToSaveButtonAtAssignedDependentsContainer();
+
+        Assert.assertTrue(assignedDependentsPO.isSaveSuccessMessageDisplayed(driver));
+        assignedDependentsPO.waitAllLoadingIconInvisible(driver);
+
+        Assert.assertTrue(assignedDependentsPO.isNameTextboxUpdatedSuccess(dependentsName));
+        Assert.assertTrue(assignedDependentsPO.isRelationshipTextboxUpdatedSuccess(dependentsRelationship));
+        Assert.assertTrue(assignedDependentsPO.isDateOfBirthTextboxUpdatedSuccess(dependentsDateOfBirth));
+
+        assignedDependentsPO.clickAddButtonAtAttachments();
+        assignedDependentsPO.uploadMultipleFiles(driver, dependentsAttachmentsImageName);
+
+        assignedDependentsPO.clickToSaveButtonAtAssignedDependentsContainer();
+
+        Assert.assertTrue(assignedDependentsPO.isSaveSuccessMessageDisplayed(driver));
+        assignedDependentsPO.waitAllLoadingIconInvisible(driver);
+
+        Assert.assertTrue(assignedDependentsPO.isAttachmentsImageUpdatedSuccess(dependentsAttachmentsImageName));
     }
 
     @Description("Edit view job")
@@ -220,12 +250,6 @@ public class PIM_01_Employee extends BaseTest {
     @Description("Qualifications")
     @Test
     public void Employee_10_Qualifications() {
-
-    }
-
-    @Description("Search employee")
-    @Test
-    public void Employee_11_Search_Employee() {
 
     }
 

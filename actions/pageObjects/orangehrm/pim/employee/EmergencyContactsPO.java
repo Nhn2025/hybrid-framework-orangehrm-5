@@ -20,20 +20,20 @@ public class EmergencyContactsPO extends EmployeeTabs {
 
     @Step("Enter to name textbox")
     public void enterToNameTextbox(String nameEmergency) {
-        waitForElementVisible(driver, EmergencyContactsPUI.NAME_EMERGENCY_TEXTBOX);
-        sendKeyToElement(driver, EmergencyContactsPUI.NAME_EMERGENCY_TEXTBOX, nameEmergency);
+        waitForElementVisible(driver, EmergencyContactsPUI.EMERGENCY_NAME_TEXTBOX);
+        sendKeyToElement(driver, EmergencyContactsPUI.EMERGENCY_NAME_TEXTBOX, nameEmergency);
     }
 
     @Step("Enter to relationship textbox")
     public void enterToRelationshipTextbox(String relationship) {
-        waitForElementVisible(driver, EmergencyContactsPUI.RELATIONSHIP_EMERGENCY_TEXTBOX);
-        sendKeyToElement(driver, EmergencyContactsPUI.RELATIONSHIP_EMERGENCY_TEXTBOX, relationship);
+        waitForElementVisible(driver, EmergencyContactsPUI.EMERGENCY_RELATIONSHIP_TEXTBOX);
+        sendKeyToElement(driver, EmergencyContactsPUI.EMERGENCY_RELATIONSHIP_TEXTBOX, relationship);
     }
 
     @Step("Enter to home telephone textbox")
     public void enterToHomeTelephoneTextbox(String homeTelephone) {
-        waitForElementVisible(driver, EmergencyContactsPUI.HOME_TELEPHONE_EMERGENCY_TEXTBOX);
-        sendKeyToElement(driver, EmergencyContactsPUI.HOME_TELEPHONE_EMERGENCY_TEXTBOX, homeTelephone);
+        waitForElementVisible(driver, EmergencyContactsPUI.EMERGENCY_HOME_TELEPHONE_TEXTBOX);
+        sendKeyToElement(driver, EmergencyContactsPUI.EMERGENCY_HOME_TELEPHONE_TEXTBOX, homeTelephone);
     }
 
     @Step("Click save button at emergency details container")
@@ -44,31 +44,31 @@ public class EmergencyContactsPO extends EmployeeTabs {
 
     @Step("Name textbox is updated success")
     public boolean isNameTextboxUpdatedSuccess(String homeTelephone) {
-        waitForElementVisible(driver, EmergencyContactsPUI.NAME_EMERGENCY_COLUMN, homeTelephone);
-        return isElementDisplayed(driver, EmergencyContactsPUI.NAME_EMERGENCY_COLUMN, homeTelephone);
+        waitForElementVisible(driver, EmergencyContactsPUI.EMERGENCY_NAME_COLUMN, homeTelephone);
+        return isElementDisplayed(driver, EmergencyContactsPUI.EMERGENCY_NAME_COLUMN, homeTelephone);
     }
 
     @Step("Relationship textbox is updated success")
     public boolean isRelationshipTextboxUpdatedSuccess(String relationship) {
-        waitForElementVisible(driver, EmergencyContactsPUI.RELATIONSHIP_EMERGENCY_COLUMN, relationship);
-        return isElementDisplayed(driver, EmergencyContactsPUI.RELATIONSHIP_EMERGENCY_COLUMN, relationship);
+        waitForElementVisible(driver, EmergencyContactsPUI.EMERGENCY_RELATIONSHIP_COLUMN, relationship);
+        return isElementDisplayed(driver, EmergencyContactsPUI.EMERGENCY_RELATIONSHIP_COLUMN, relationship);
     }
 
     @Step("Home telephone textbox is updated success")
     public boolean isHomeTelephoneTextboxUpdatedSuccess(String homeTelephone) {
-        waitForElementVisible(driver, EmergencyContactsPUI.HOME_TELEPHONE_EMERGENCY_COLUMN, homeTelephone);
-        return isElementDisplayed(driver, EmergencyContactsPUI.HOME_TELEPHONE_EMERGENCY_COLUMN, homeTelephone);
+        waitForElementVisible(driver, EmergencyContactsPUI.EMERGENCY_HOME_TELEPHONE_COLUMN, homeTelephone);
+        return isElementDisplayed(driver, EmergencyContactsPUI.EMERGENCY_HOME_TELEPHONE_COLUMN, homeTelephone);
     }
 
     @Step("Click add button at attachments")
     public void clickAddButtonAtAttachments() {
-        waitForElementClickable(driver, EmergencyContactsPUI.ADD_ATTACHMENTS_BUTTON);
-        clickToElement(driver, EmergencyContactsPUI.ADD_ATTACHMENTS_BUTTON);
+        waitForElementClickable(driver, EmergencyContactsPUI.EMERGENCY_ADD_ATTACHMENTS_BUTTON);
+        clickToElement(driver, EmergencyContactsPUI.EMERGENCY_ADD_ATTACHMENTS_BUTTON);
     }
 
     @Step("Attachments image is updated success")
     public boolean isAttachmentsImageUpdatedSuccess(String attachmentsImageName) {
-        waitForElementVisible(driver, EmergencyContactsPUI.ATTACHMENTS_FILE_NAME_COLUMN, attachmentsImageName);
-        return isElementDisplayed(driver, EmergencyContactsPUI.ATTACHMENTS_FILE_NAME_COLUMN, attachmentsImageName);
+        waitForElementVisible(driver, EmergencyContactsPUI.EMERGENCY_ATTACHMENTS_FILE_NAME_COLUMN, attachmentsImageName);
+        return isElementDisplayed(driver, EmergencyContactsPUI.EMERGENCY_ATTACHMENTS_FILE_NAME_COLUMN, attachmentsImageName);
     }
 }
