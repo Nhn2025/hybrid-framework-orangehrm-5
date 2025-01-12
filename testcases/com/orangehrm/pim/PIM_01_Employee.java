@@ -30,11 +30,13 @@ public class PIM_01_Employee extends BaseTest {
     private ContactDetailsPO contactDetailsPO;
     private EmergencyContactsPO emergencyContactsPO;
     private AssignedDependentsPO assignedDependentsPO;
+    private JobPO jobPO;
     private String employeeID, firstName, lastName, editFirstName, editLastName;
     private String driverLicenseNumber, driverLicenseExpiryDate, nationality, maritalStatus, dateOfBirth, gender;
     private String streetName, cityName, provinceName, postalCode, countryName, phoneNumber, email;
     private String emergencyName, emergencyRelationship, emergencyHomeTelephone;
     private String dependentsName, dependentsRelationship, dependentsDateOfBirth;
+    private String joinedDate, jobTitle, jobCategory, location, employmentStatus;
     private String avatarImageName = "doraemon.png";
     private String emergencyAttachmentsImageName = "nobita.png";
     private String dependentsAttachmentsImageName = "dorami.png";
@@ -75,6 +77,12 @@ public class PIM_01_Employee extends BaseTest {
         dependentsName = "Vo Thanh Hoa";
         dependentsRelationship = "Child";
         dependentsDateOfBirth = "2010-09-10";
+
+        joinedDate = "2020-10-11";
+        jobTitle = "Automation Tester";
+        jobCategory = "Technicians";
+        location = "Can Tho Branch";
+        employmentStatus = "Fulltime Employee";
 
         loginPage.enterToUsernameTextbox();
         loginPage.enterToPasswordTextbox();
@@ -232,7 +240,23 @@ public class PIM_01_Employee extends BaseTest {
     @Description("Edit view job")
     @Test
     public void Employee_07_Edit_View_Job() {
+        jobPO = assignedDependentsPO.openJobPage();
 
+        jobPO.enterToJoinedDateTextbox(joinedDate);
+        jobPO.selectJobTitleDropdown(jobTitle);
+        jobPO.selectJobCategoryDropdown(jobCategory);
+        jobPO.selectLocationDropdown(location);
+        jobPO.selectEmploymentStatusDropdown(employmentStatus);
+        jobPO.clickSaveButtonAtJobContainer();
+
+        Assert.assertTrue(jobPO.isUpdateSuccessMessageDisplayed(driver));
+        jobPO.waitAllLoadingIconInvisible(driver);
+
+        Assert.assertEquals(jobPO.getTextJoinedDateTextbox(), joinedDate);
+        Assert.assertEquals(jobPO.getJobTitleDropdownValue(), jobTitle);
+        Assert.assertEquals(jobPO.getJobCategoryDropdownValue(), jobCategory);
+        Assert.assertEquals(jobPO.getLocationDropdownValue(), location);
+        Assert.assertEquals(jobPO.getEmploymentStatusDropdownValue(), employmentStatus);
     }
 
     @Description("Edit view salary")

@@ -63,10 +63,6 @@ public class PageGenerator {
         return new AssignedDependentsPO(driver);
     }
 
-    public static ImmigrationPO getImmigrationPage(WebDriver driver) {
-        return new ImmigrationPO(driver);
-    }
-
     public static JobPO getJobPage(WebDriver driver) {
         return new JobPO(driver);
     }

@@ -45,14 +45,6 @@ public class EmployeeTabs extends BasePage {
         return PageGenerator.getAssignedDependentsPage(driver);
     }
 
-    @Step("Open immigration page")
-    public ImmigrationPO openImmigrationPage() {
-        waitForElementVisible(driver, EmployeeTabsPUI.IMMIGRATION_LINK);
-        clickToElement(driver, EmployeeTabsPUI.IMMIGRATION_LINK);
-        waitAllLoadingIconInvisible(driver);
-        return PageGenerator.getImmigrationPage(driver);
-    }
-
     @Step("Open job page")
     public JobPO openJobPage() {
         waitForElementVisible(driver, EmployeeTabsPUI.JOB_LINK);
