@@ -43,19 +43,19 @@ public class EmergencyContactsPO extends EmployeeTabs {
     }
 
     @Step("Name textbox is updated success")
-    public boolean isNameTextboxUpdatedSuccess(String homeTelephone) {
+    public boolean isNameUpdatedSuccess(String homeTelephone) {
         waitForElementVisible(driver, EmergencyContactsPUI.EMERGENCY_NAME_COLUMN, homeTelephone);
         return isElementDisplayed(driver, EmergencyContactsPUI.EMERGENCY_NAME_COLUMN, homeTelephone);
     }
 
     @Step("Relationship textbox is updated success")
-    public boolean isRelationshipTextboxUpdatedSuccess(String relationship) {
+    public boolean isRelationshipUpdatedSuccess(String relationship) {
         waitForElementVisible(driver, EmergencyContactsPUI.EMERGENCY_RELATIONSHIP_COLUMN, relationship);
         return isElementDisplayed(driver, EmergencyContactsPUI.EMERGENCY_RELATIONSHIP_COLUMN, relationship);
     }
 
     @Step("Home telephone textbox is updated success")
-    public boolean isHomeTelephoneTextboxUpdatedSuccess(String homeTelephone) {
+    public boolean isHomeTelephoneUpdatedSuccess(String homeTelephone) {
         waitForElementVisible(driver, EmergencyContactsPUI.EMERGENCY_HOME_TELEPHONE_COLUMN, homeTelephone);
         return isElementDisplayed(driver, EmergencyContactsPUI.EMERGENCY_HOME_TELEPHONE_COLUMN, homeTelephone);
     }

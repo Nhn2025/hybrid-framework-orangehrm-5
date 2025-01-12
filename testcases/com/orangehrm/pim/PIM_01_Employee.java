@@ -30,6 +30,7 @@ public class PIM_01_Employee extends BaseTest {
     private ContactDetailsPO contactDetailsPO;
     private EmergencyContactsPO emergencyContactsPO;
     private AssignedDependentsPO assignedDependentsPO;
+    private SalaryPO salaryPO;
     private JobPO jobPO;
     private String employeeID, firstName, lastName, editFirstName, editLastName;
     private String driverLicenseNumber, driverLicenseExpiryDate, nationality, maritalStatus, dateOfBirth, gender;
@@ -37,6 +38,7 @@ public class PIM_01_Employee extends BaseTest {
     private String emergencyName, emergencyRelationship, emergencyHomeTelephone;
     private String dependentsName, dependentsRelationship, dependentsDateOfBirth;
     private String joinedDate, jobTitle, jobCategory, location, employmentStatus;
+    private String salaryComponentName, payGradeName, payFrequencyName, currencyName, salaryAmount;
     private String avatarImageName = "doraemon.png";
     private String emergencyAttachmentsImageName = "nobita.png";
     private String dependentsAttachmentsImageName = "dorami.png";
@@ -83,6 +85,12 @@ public class PIM_01_Employee extends BaseTest {
         jobCategory = "Technicians";
         location = "Can Tho Branch";
         employmentStatus = "Fulltime Employee";
+
+        salaryComponentName = "Bonus Salary";
+        payGradeName = "Junior";
+        payFrequencyName = "Hourly";
+        currencyName = "Vietnamese Dong";
+        salaryAmount = "10000000";
 
         loginPage.enterToUsernameTextbox();
         loginPage.enterToPasswordTextbox();
@@ -193,9 +201,9 @@ public class PIM_01_Employee extends BaseTest {
         Assert.assertTrue(emergencyContactsPO.isSaveSuccessMessageDisplayed(driver));
         emergencyContactsPO.waitAllLoadingIconInvisible(driver);
 
-        Assert.assertTrue(emergencyContactsPO.isNameTextboxUpdatedSuccess(emergencyName));
-        Assert.assertTrue(emergencyContactsPO.isRelationshipTextboxUpdatedSuccess(emergencyRelationship));
-        Assert.assertTrue(emergencyContactsPO.isHomeTelephoneTextboxUpdatedSuccess(emergencyHomeTelephone));
+        Assert.assertTrue(emergencyContactsPO.isNameUpdatedSuccess(emergencyName));
+        Assert.assertTrue(emergencyContactsPO.isRelationshipUpdatedSuccess(emergencyRelationship));
+        Assert.assertTrue(emergencyContactsPO.isHomeTelephoneUpdatedSuccess(emergencyHomeTelephone));
 
         emergencyContactsPO.clickAddButtonAtAttachments();
         emergencyContactsPO.uploadMultipleFiles(driver, emergencyAttachmentsImageName);
@@ -222,9 +230,9 @@ public class PIM_01_Employee extends BaseTest {
         Assert.assertTrue(assignedDependentsPO.isSaveSuccessMessageDisplayed(driver));
         assignedDependentsPO.waitAllLoadingIconInvisible(driver);
 
-        Assert.assertTrue(assignedDependentsPO.isNameTextboxUpdatedSuccess(dependentsName));
-        Assert.assertTrue(assignedDependentsPO.isRelationshipTextboxUpdatedSuccess(dependentsRelationship));
-        Assert.assertTrue(assignedDependentsPO.isDateOfBirthTextboxUpdatedSuccess(dependentsDateOfBirth));
+        Assert.assertTrue(assignedDependentsPO.isNameUpdatedSuccess(dependentsName));
+        Assert.assertTrue(assignedDependentsPO.isRelationshipUpdatedSuccess(dependentsRelationship));
+        Assert.assertTrue(assignedDependentsPO.isDateOfBirthUpdatedSuccess(dependentsDateOfBirth));
 
         assignedDependentsPO.clickAddButtonAtAttachments();
         assignedDependentsPO.uploadMultipleFiles(driver, dependentsAttachmentsImageName);
@@ -262,7 +270,24 @@ public class PIM_01_Employee extends BaseTest {
     @Description("Edit view salary")
     @Test
     public void Employee_08_Edit_View_Salary() {
+        salaryPO = emergencyContactsPO.openSalaryPage();
 
+        salaryPO.clickAddButtonAtAddSalaryComponent();
+        salaryPO.enterToSalaryComponentTextbox(salaryComponentName);
+        salaryPO.selectPayGradeDropdown(payGradeName);
+        salaryPO.selectPayFrequencyDropdown(payFrequencyName);
+        salaryPO.selectCurrencyDropdown(currencyName);
+        salaryPO.enterToAmountTextbox(salaryAmount);
+
+        salaryPO.clickToSaveButtonAtSalaryContainer();
+
+        Assert.assertTrue(salaryPO.isSaveSuccessMessageDisplayed(driver));
+        salaryPO.waitAllLoadingIconInvisible(driver);
+
+        Assert.assertTrue(salaryPO.isSalaryComponentUpdatedSuccess(salaryComponentName));
+        Assert.assertTrue(salaryPO.isPayFrequencyUpdatedSuccess(payFrequencyName));
+        Assert.assertTrue(salaryPO.isCurrencyUpdatedSuccess(currencyName));
+        Assert.assertTrue(salaryPO.isAmountUpdatedSuccess(salaryAmount));
     }
 
     @Description("Edit view tax")

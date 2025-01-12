@@ -43,19 +43,19 @@ public class AssignedDependentsPO extends EmployeeTabs {
     }
 
     @Step("Name textbox is updated success")
-    public boolean isNameTextboxUpdatedSuccess(String dependentsName) {
+    public boolean isNameUpdatedSuccess(String dependentsName) {
         waitForElementVisible(driver, AssignedDependentsPUI.DEPENDENTS_NAME_COLUMN, dependentsName);
         return isElementDisplayed(driver, AssignedDependentsPUI.DEPENDENTS_NAME_COLUMN, dependentsName);
     }
 
     @Step("Relationship textbox is updated success")
-    public boolean isRelationshipTextboxUpdatedSuccess(String dependentsRelationship) {
+    public boolean isRelationshipUpdatedSuccess(String dependentsRelationship) {
         waitForElementVisible(driver, AssignedDependentsPUI.DEPENDENTS_RELATIONSHIP_COLUMN, dependentsRelationship);
         return isElementDisplayed(driver, AssignedDependentsPUI.DEPENDENTS_RELATIONSHIP_COLUMN, dependentsRelationship);
     }
 
     @Step("Date of birth textbox is updated success")
-    public boolean isDateOfBirthTextboxUpdatedSuccess(String dependentsDateOfBirth) {
+    public boolean isDateOfBirthUpdatedSuccess(String dependentsDateOfBirth) {
         waitForElementVisible(driver, AssignedDependentsPUI.DEPENDENTS_DATE_OF_BIRTH_COLUMN, dependentsDateOfBirth);
         return isElementDisplayed(driver, AssignedDependentsPUI.DEPENDENTS_DATE_OF_BIRTH_COLUMN, dependentsDateOfBirth);
     }
