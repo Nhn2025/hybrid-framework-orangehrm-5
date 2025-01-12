@@ -32,13 +32,13 @@ public class SalaryPO extends EmployeeTabs{
 
     @Step("Select pay frequency dropdown")
     public void selectPayFrequencyDropdown(String payFrequencyName) {
-        waitForElementVisible(driver, SalaryPUI.PAY_FREQUENCY_DROPDOWN_PARENT);
+        waitForElementClickable(driver, SalaryPUI.PAY_FREQUENCY_DROPDOWN_PARENT);
         selectItemInCustomDropdown(driver, SalaryPUI.PAY_FREQUENCY_DROPDOWN_PARENT, SalaryPUI.PAY_FREQUENCY_DROPDOWN_CHILD, payFrequencyName);
     }
 
     @Step("Select currency dropdown")
     public void selectCurrencyDropdown(String currencyName) {
-        waitForElementVisible(driver, SalaryPUI.CURRENCY_DROPDOWN_PARENT);
+        waitForElementClickable(driver, SalaryPUI.CURRENCY_DROPDOWN_PARENT);
         selectItemInCustomDropdown(driver, SalaryPUI.CURRENCY_DROPDOWN_PARENT, SalaryPUI.CURRENCY_DROPDOWN_CHILD, currencyName);
     }
 

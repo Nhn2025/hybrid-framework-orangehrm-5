@@ -16,6 +16,4 @@ public class SalaryPUI {
     public static final String CURRENCY_DROPDOWN_COLUMN = "xpath=//div[@class='oxd-table-body']//div[text()='%s']";
     public static final String AMOUNT_COLUMN = "xpath=//div[@class='oxd-table-body']//div[text()='%s']";
     public static final String SAVE_BUTTON_AT_SALARY_CONTAINER = "xpath=//button[normalize-space()='Save']";
-
-
 }

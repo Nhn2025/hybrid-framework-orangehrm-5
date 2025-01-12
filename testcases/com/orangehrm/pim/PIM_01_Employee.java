@@ -30,6 +30,7 @@ public class PIM_01_Employee extends BaseTest {
     private ContactDetailsPO contactDetailsPO;
     private EmergencyContactsPO emergencyContactsPO;
     private AssignedDependentsPO assignedDependentsPO;
+    private ReportToPO reportToPO;
     private SalaryPO salaryPO;
     private JobPO jobPO;
     private String employeeID, firstName, lastName, editFirstName, editLastName;
@@ -39,6 +40,7 @@ public class PIM_01_Employee extends BaseTest {
     private String dependentsName, dependentsRelationship, dependentsDateOfBirth;
     private String joinedDate, jobTitle, jobCategory, location, employmentStatus;
     private String salaryComponentName, payGradeName, payFrequencyName, currencyName, salaryAmount;
+    private String supervisorsName, reportingMethodSupervisors, subordinatesName, reportingMethodSubordinates;
     private String avatarImageName = "doraemon.png";
     private String emergencyAttachmentsImageName = "nobita.png";
     private String dependentsAttachmentsImageName = "dorami.png";
@@ -91,6 +93,11 @@ public class PIM_01_Employee extends BaseTest {
         payFrequencyName = "Hourly";
         currencyName = "Vietnamese Dong";
         salaryAmount = "10000000";
+
+        supervisorsName = "Vo Han";
+        reportingMethodSupervisors = "Direct";
+        subordinatesName = "Nguyen Lan";
+        reportingMethodSubordinates = "Indirect";
 
         loginPage.enterToUsernameTextbox();
         loginPage.enterToPasswordTextbox();
@@ -290,10 +297,40 @@ public class PIM_01_Employee extends BaseTest {
         Assert.assertTrue(salaryPO.isAmountUpdatedSuccess(salaryAmount));
     }
 
-    @Description("Edit view tax")
+    @Description("Edit view Report-to")
     @Test
-    public void Employee_09_Edit_View_Tax() {
+    public void Employee_09_Edit_View_Report_To() {
+        reportToPO = salaryPO.openReportToPage();
 
+        reportToPO.clickAddAssignedSupervisorsButton();
+        reportToPO.enterToNameSupervisorsTextBox(supervisorsName);
+        reportToPO.sleepInSecond(3);
+        reportToPO.selectNameSupervisorsDropdown();
+
+
+        reportToPO.selectReportingMethodSupervisorsDropdown(reportingMethodSupervisors);
+
+
+        reportToPO.clickSaveButtonAtReportToContainer();
+
+        Assert.assertTrue(reportToPO.isSaveSuccessMessageDisplayed(driver));
+        reportToPO.waitAllLoadingIconInvisible(driver);
+
+        Assert.assertTrue(reportToPO.isNameSupervisorsUpdatedSuccess(supervisorsName));
+        Assert.assertTrue(reportToPO.isReportingMethodSupervisorsUpdatedSuccess(reportingMethodSupervisors));
+
+        reportToPO.clickAddAssignedSubordinatesButton();
+        reportToPO.enterToNameSubordinatesTextBox(subordinatesName);
+        reportToPO.selectNameSubordinatesDropdown();
+        reportToPO.selectReportingMethodSubordinatesDropdown(reportingMethodSubordinates);
+
+        reportToPO.clickSaveButtonAtReportToContainer();
+
+        Assert.assertTrue(reportToPO.isSaveSuccessMessageDisplayed(driver));
+        reportToPO.waitAllLoadingIconInvisible(driver);
+
+        Assert.assertTrue(reportToPO.isNameSubordinatesUpdatedSuccess(subordinatesName));
+        Assert.assertTrue(reportToPO.isReportingMethodSubordinatesUpdatedSuccess(reportingMethodSubordinates));
     }
 
     @Description("Qualifications")
