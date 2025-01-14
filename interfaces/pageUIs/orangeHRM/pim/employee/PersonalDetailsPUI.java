@@ -15,6 +15,7 @@ public class PersonalDetailsPUI {
     public static final String MARITAL_STATUS_DROPDOWN_CHILD = "xpath=//label[contains(text(), 'Marital Status')]/parent::div/following-sibling::div//div[@class='oxd-select-option']/span";
     public static final String MARITAL_STATUS_DROPDOWN_ITEM_SELECTED = "xpath=//label[contains(text(), 'Marital Status')]/parent::div/following-sibling::div//div[@class='oxd-select-text-input']";
     public static final String DATE_OF_BIRTH_TEXTBOX = "xpath=//label[contains(text(), 'Date of Birth')]/parent::div/following-sibling::div//input";
-    public static final String GENDER_RADIO_BUTTON = "xpath=//label[contains(text(), 'Gender')]/parent::div/following-sibling::div//label[contains(string(), '%s')]/input";
+    public static final String GENDER_RADIO_INPUT_BUTTON = "xpath=//label[contains(text(), 'Gender')]/parent::div/following-sibling::div//label[contains(string(), '%s')]/input";
+    public static final String GENDER_RADIO_SPAN_BUTTON = "xpath=//label[contains(text(), 'Gender')]/parent::div/following-sibling::div//label[contains(string(), '%s')]/span";
     public static final String SAVE_BUTTON_AT_DETAIL_PERSONAL_CONTAINER = "xpath=//button[normalize-space()='Save']";
 }

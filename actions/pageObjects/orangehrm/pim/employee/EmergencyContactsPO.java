@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import pageUIs.orangeHRM.pim.employee.EmergencyContactsPUI;
 
-public class EmergencyContactsPO extends EmployeeTabs {
+public class EmergencyContactsPO extends EmployeeTabsPO {
     private WebDriver driver;
 
     public EmergencyContactsPO(WebDriver driver) {

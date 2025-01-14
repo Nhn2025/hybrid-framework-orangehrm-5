@@ -3,9 +3,8 @@ package pageObjects.orangehrm.pim.employee;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import pageUIs.orangeHRM.pim.employee.ContactDetailsPUI;
-import pageUIs.orangeHRM.pim.employee.PersonalDetailsPUI;
 
-public class ContactDetailsPO extends EmployeeTabs {
+public class ContactDetailsPO extends EmployeeTabsPO {
     private WebDriver driver;
 
     public ContactDetailsPO(WebDriver driver) {

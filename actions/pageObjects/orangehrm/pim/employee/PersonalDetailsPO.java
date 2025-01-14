@@ -5,7 +5,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import pageUIs.orangeHRM.pim.employee.PersonalDetailsPUI;
 
-public class PersonalDetailsPO extends EmployeeTabs {
+public class PersonalDetailsPO extends EmployeeTabsPO {
     private WebDriver driver;
 
     public PersonalDetailsPO(WebDriver driver) {
@@ -87,8 +87,9 @@ public class PersonalDetailsPO extends EmployeeTabs {
     }
 
     @Step("Select gender male radio button")
-    public void selectGenderMaleRadioButton(String genderMale) {
-        clickToElementByJS(driver, PersonalDetailsPUI.GENDER_RADIO_BUTTON, genderMale);
+    public void selectGenderMaleRadioButton(String gender) {
+        waitForElementClickable(driver, PersonalDetailsPUI.GENDER_RADIO_SPAN_BUTTON, gender);
+        checkToCheckboxRadio(driver, PersonalDetailsPUI.GENDER_RADIO_SPAN_BUTTON, gender);
     }
 
     @Step("Click save button at personal detail container")
@@ -141,7 +142,8 @@ public class PersonalDetailsPO extends EmployeeTabs {
 
     @Step("Gender male radio is selected")
     public boolean isGenderMaleRadioSelected(String gender) {
-        waitForElementSelected(driver, PersonalDetailsPUI.GENDER_RADIO_BUTTON, gender);
-        return isElementSelected(driver, PersonalDetailsPUI.GENDER_RADIO_BUTTON, gender);
+        waitForElementSelected(driver, PersonalDetailsPUI.GENDER_RADIO_INPUT_BUTTON, gender);
+        return isElementSelected(driver, PersonalDetailsPUI.GENDER_RADIO_INPUT_BUTTON, gender);
+
     }
 }

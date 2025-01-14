@@ -6,10 +6,10 @@ import org.openqa.selenium.WebDriver;
 import pageObjects.orangehrm.PageGenerator;
 import pageUIs.orangeHRM.pim.employee.EmployeeTabsPUI;
 
-public class EmployeeTabs extends BasePage {
+public class EmployeeTabsPO extends BasePage {
     private WebDriver driver;
 
-    public EmployeeTabs(WebDriver driver) {
+    public EmployeeTabsPO(WebDriver driver) {
         this.driver = driver;
     }
 

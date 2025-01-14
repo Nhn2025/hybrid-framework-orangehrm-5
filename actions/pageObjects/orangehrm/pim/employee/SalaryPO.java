@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import pageUIs.orangeHRM.pim.employee.SalaryPUI;
 
-public class SalaryPO extends EmployeeTabs{
+public class SalaryPO extends EmployeeTabsPO {
     private WebDriver driver;
 
     public SalaryPO(WebDriver driver) {
@@ -32,6 +32,7 @@ public class SalaryPO extends EmployeeTabs{
 
     @Step("Select pay frequency dropdown")
     public void selectPayFrequencyDropdown(String payFrequencyName) {
+        waitAllLoadingIconInvisible(driver);
         waitForElementClickable(driver, SalaryPUI.PAY_FREQUENCY_DROPDOWN_PARENT);
         selectItemInCustomDropdown(driver, SalaryPUI.PAY_FREQUENCY_DROPDOWN_PARENT, SalaryPUI.PAY_FREQUENCY_DROPDOWN_CHILD, payFrequencyName);
     }

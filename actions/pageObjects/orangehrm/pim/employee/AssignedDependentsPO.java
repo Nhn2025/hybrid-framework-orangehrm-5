@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import pageUIs.orangeHRM.pim.employee.AssignedDependentsPUI;
 
-public class AssignedDependentsPO extends EmployeeTabs {
+public class AssignedDependentsPO extends EmployeeTabsPO {
     private WebDriver driver;
 
     public AssignedDependentsPO(WebDriver driver) {

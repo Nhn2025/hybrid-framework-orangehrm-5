@@ -33,6 +33,7 @@ public class PIM_01_Employee extends BaseTest {
     private ReportToPO reportToPO;
     private SalaryPO salaryPO;
     private JobPO jobPO;
+    private QualificationsPO qualificationsPO;
     private String employeeID, firstName, lastName, editFirstName, editLastName;
     private String driverLicenseNumber, driverLicenseExpiryDate, nationality, maritalStatus, dateOfBirth, gender;
     private String streetName, cityName, provinceName, postalCode, countryName, phoneNumber, email;
@@ -41,6 +42,9 @@ public class PIM_01_Employee extends BaseTest {
     private String joinedDate, jobTitle, jobCategory, location, employmentStatus;
     private String salaryComponentName, payGradeName, payFrequencyName, currencyName, salaryAmount;
     private String supervisorsName, reportingMethodSupervisors, subordinatesName, reportingMethodSubordinates;
+    private String companyName, jobTitleExperience, startDateOfWork, endDateOfWork, educationLevel, institute, major, score;
+    private String yearEducation, startDateEducation, endDateEducation, skillName, yearOfExperience, language, fluency;
+    private String competency, licenseName, licenseNumber, startDateLicense, endDateLicense;
     private String avatarImageName = "doraemon.png";
     private String emergencyAttachmentsImageName = "nobita.png";
     private String dependentsAttachmentsImageName = "dorami.png";
@@ -54,19 +58,18 @@ public class PIM_01_Employee extends BaseTest {
         driver.manage().window().maximize();
         loginPage = PageGenerator.getLoginPage(driver);
 
+        // Thông tin cá nhân
         firstName = "Thu";
         lastName = "Duong";
-
         editFirstName = "Dung";
         editLastName = "Duong";
-        driverLicenseNumber = "012345667";
-        driverLicenseExpiryDate = "2023-09-10";
-        nationality = "Vietnamese";
-        maritalStatus = "Single";
         dateOfBirth = "1995-09-10";
         gender = "Male";
-        postalCode = "900000";
+        nationality = "Vietnamese";
+        maritalStatus = "Single";
 
+        // Thông tin liên lạc
+        postalCode = "900000";
         streetName = "30/04 Street";
         cityName = "Can Tho";
         provinceName = "Ninh Kieu";
@@ -74,30 +77,65 @@ public class PIM_01_Employee extends BaseTest {
         phoneNumber = "0388653728";
         email = getEmailRandom();
 
+        // Thông tin khẩn cấp
         emergencyName = "Duong Van An";
         emergencyRelationship = "Brother";
         emergencyHomeTelephone = "03667820298";
 
+        // Thông tin người phụ thuộc
         dependentsName = "Vo Thanh Hoa";
         dependentsRelationship = "Child";
         dependentsDateOfBirth = "2010-09-10";
 
+        // Thông tin công việc
         joinedDate = "2020-10-11";
         jobTitle = "Automation Tester";
         jobCategory = "Technicians";
         location = "Can Tho Branch";
         employmentStatus = "Fulltime Employee";
 
+        // Thông tin lương
         salaryComponentName = "Bonus Salary";
         payGradeName = "Junior";
         payFrequencyName = "Hourly";
         currencyName = "Vietnamese Dong";
         salaryAmount = "10000000";
 
+        // Thông tin giám sát và cấp dưới
         supervisorsName = "Vo Han";
         reportingMethodSupervisors = "Direct";
         subordinatesName = "Nguyen Lan";
         reportingMethodSubordinates = "Indirect";
+
+        // Thông tin kinh nghiệm làm việc
+        companyName = "FPT Software";
+        jobTitleExperience = "Auto Tester";
+        startDateOfWork = "2024-10-11";
+        endDateOfWork = "2025-02-03";
+
+        // Thông tin học vấn
+        educationLevel = "Dai hoc Can Tho - CT";
+        institute = "CNTT";
+        major = "He thong thong tin";
+        score = "3.8";
+        yearEducation = "4";
+        startDateEducation = "2021-10-10";
+        endDateEducation = "2025-12-12";
+
+        // Thông tin kỹ năng
+        skillName = "Java";
+        yearOfExperience = "2";
+        language = "English";
+        fluency = "Writing";
+        competency = "Basic";
+
+        // Thông tin chứng chỉ
+        licenseName = "ISTQB Advanced";
+        licenseNumber = "9201723";
+        startDateLicense = "2022-10-11";
+        endDateLicense = "2023-10-09";
+        driverLicenseNumber = "012345667";
+        driverLicenseExpiryDate = "2023-09-10";
 
         loginPage.enterToUsernameTextbox();
         loginPage.enterToPasswordTextbox();
@@ -107,14 +145,13 @@ public class PIM_01_Employee extends BaseTest {
     @Description("Add new employee")
     @Test
     public void Employee_01_Add_New_Employee() {
-        employeeListPage = dashboardPage.clickToPIMPage();
+        employeeListPage = dashboardPage.openToPIMPage();
 
         addNewEmployeePage = employeeListPage.clickToAddEmployeeButton();
-
         addNewEmployeePage.enterToFirstNameTextbox(firstName);
         addNewEmployeePage.enterToLastNameTextbox(lastName);
-        employeeID = addNewEmployeePage.getEmployeeID();
 
+        employeeID = addNewEmployeePage.getEmployeeID();
         personalDetailsPage = addNewEmployeePage.clickToSaveButtonAtEmployeeContainer();
     }
 
@@ -124,15 +161,11 @@ public class PIM_01_Employee extends BaseTest {
         personalDetailsPage.clickToEmployeeAvatarImage();
 
         Dimension beforeUpload = personalDetailsPage.getAvatarSize();
-
         personalDetailsPage.uploadMultipleFiles(driver, avatarImageName);
-
         personalDetailsPage.clickToSaveButtonAtProfileContainer();
 
         Assert.assertTrue(personalDetailsPage.isUpdateSuccessMessageDisplayed(driver));
-
         personalDetailsPage.waitAllLoadingIconInvisible(driver);
-
         Assert.assertTrue(personalDetailsPage.isProfileAvatarUpdatedSuccess(beforeUpload));
     }
 
@@ -156,7 +189,6 @@ public class PIM_01_Employee extends BaseTest {
 
         Assert.assertTrue(personalDetailsPage.isUpdateSuccessMessageDisplayed(driver));
         personalDetailsPage.waitAllLoadingIconInvisible(driver);
-
         Assert.assertEquals(personalDetailsPage.getFirstNameTextboxValue(), editFirstName);
         Assert.assertEquals(personalDetailsPage.getLastNameTextboxValue(), editLastName);
         Assert.assertEquals(personalDetailsPage.getEmployeeID(), employeeID);
@@ -184,7 +216,6 @@ public class PIM_01_Employee extends BaseTest {
 
         Assert.assertTrue(contactDetailsPO.isUpdateSuccessMessageDisplayed(driver));
         contactDetailsPO.waitAllLoadingIconInvisible(driver);
-
         Assert.assertEquals(contactDetailsPO.getStreetTextboxValue(), streetName);
         Assert.assertEquals(contactDetailsPO.getCityTextboxValue(), cityName);
         Assert.assertEquals(contactDetailsPO.getProvinceTextboxValue(), provinceName);
@@ -207,19 +238,16 @@ public class PIM_01_Employee extends BaseTest {
 
         Assert.assertTrue(emergencyContactsPO.isSaveSuccessMessageDisplayed(driver));
         emergencyContactsPO.waitAllLoadingIconInvisible(driver);
-
         Assert.assertTrue(emergencyContactsPO.isNameUpdatedSuccess(emergencyName));
         Assert.assertTrue(emergencyContactsPO.isRelationshipUpdatedSuccess(emergencyRelationship));
         Assert.assertTrue(emergencyContactsPO.isHomeTelephoneUpdatedSuccess(emergencyHomeTelephone));
 
         emergencyContactsPO.clickAddButtonAtAttachments();
         emergencyContactsPO.uploadMultipleFiles(driver, emergencyAttachmentsImageName);
-
         emergencyContactsPO.clickToSaveButtonAtEmergencyDetailsContainer();
 
         Assert.assertTrue(emergencyContactsPO.isSaveSuccessMessageDisplayed(driver));
         emergencyContactsPO.waitAllLoadingIconInvisible(driver);
-
         Assert.assertTrue(emergencyContactsPO.isAttachmentsImageUpdatedSuccess(emergencyAttachmentsImageName));
     }
 
@@ -236,19 +264,16 @@ public class PIM_01_Employee extends BaseTest {
 
         Assert.assertTrue(assignedDependentsPO.isSaveSuccessMessageDisplayed(driver));
         assignedDependentsPO.waitAllLoadingIconInvisible(driver);
-
         Assert.assertTrue(assignedDependentsPO.isNameUpdatedSuccess(dependentsName));
         Assert.assertTrue(assignedDependentsPO.isRelationshipUpdatedSuccess(dependentsRelationship));
         Assert.assertTrue(assignedDependentsPO.isDateOfBirthUpdatedSuccess(dependentsDateOfBirth));
 
         assignedDependentsPO.clickAddButtonAtAttachments();
         assignedDependentsPO.uploadMultipleFiles(driver, dependentsAttachmentsImageName);
-
         assignedDependentsPO.clickToSaveButtonAtAssignedDependentsContainer();
 
         Assert.assertTrue(assignedDependentsPO.isSaveSuccessMessageDisplayed(driver));
         assignedDependentsPO.waitAllLoadingIconInvisible(driver);
-
         Assert.assertTrue(assignedDependentsPO.isAttachmentsImageUpdatedSuccess(dependentsAttachmentsImageName));
     }
 
@@ -266,7 +291,6 @@ public class PIM_01_Employee extends BaseTest {
 
         Assert.assertTrue(jobPO.isUpdateSuccessMessageDisplayed(driver));
         jobPO.waitAllLoadingIconInvisible(driver);
-
         Assert.assertEquals(jobPO.getTextJoinedDateTextbox(), joinedDate);
         Assert.assertEquals(jobPO.getJobTitleDropdownValue(), jobTitle);
         Assert.assertEquals(jobPO.getJobCategoryDropdownValue(), jobCategory);
@@ -282,15 +306,14 @@ public class PIM_01_Employee extends BaseTest {
         salaryPO.clickAddButtonAtAddSalaryComponent();
         salaryPO.enterToSalaryComponentTextbox(salaryComponentName);
         salaryPO.selectPayGradeDropdown(payGradeName);
+
         salaryPO.selectPayFrequencyDropdown(payFrequencyName);
         salaryPO.selectCurrencyDropdown(currencyName);
         salaryPO.enterToAmountTextbox(salaryAmount);
-
         salaryPO.clickToSaveButtonAtSalaryContainer();
 
         Assert.assertTrue(salaryPO.isSaveSuccessMessageDisplayed(driver));
         salaryPO.waitAllLoadingIconInvisible(driver);
-
         Assert.assertTrue(salaryPO.isSalaryComponentUpdatedSuccess(salaryComponentName));
         Assert.assertTrue(salaryPO.isPayFrequencyUpdatedSuccess(payFrequencyName));
         Assert.assertTrue(salaryPO.isCurrencyUpdatedSuccess(currencyName));
@@ -304,18 +327,12 @@ public class PIM_01_Employee extends BaseTest {
 
         reportToPO.clickAddAssignedSupervisorsButton();
         reportToPO.enterToNameSupervisorsTextBox(supervisorsName);
-        reportToPO.sleepInSecond(3);
         reportToPO.selectNameSupervisorsDropdown();
-
-
         reportToPO.selectReportingMethodSupervisorsDropdown(reportingMethodSupervisors);
-
-
         reportToPO.clickSaveButtonAtReportToContainer();
 
         Assert.assertTrue(reportToPO.isSaveSuccessMessageDisplayed(driver));
         reportToPO.waitAllLoadingIconInvisible(driver);
-
         Assert.assertTrue(reportToPO.isNameSupervisorsUpdatedSuccess(supervisorsName));
         Assert.assertTrue(reportToPO.isReportingMethodSupervisorsUpdatedSuccess(reportingMethodSupervisors));
 
@@ -323,12 +340,10 @@ public class PIM_01_Employee extends BaseTest {
         reportToPO.enterToNameSubordinatesTextBox(subordinatesName);
         reportToPO.selectNameSubordinatesDropdown();
         reportToPO.selectReportingMethodSubordinatesDropdown(reportingMethodSubordinates);
-
         reportToPO.clickSaveButtonAtReportToContainer();
 
         Assert.assertTrue(reportToPO.isSaveSuccessMessageDisplayed(driver));
         reportToPO.waitAllLoadingIconInvisible(driver);
-
         Assert.assertTrue(reportToPO.isNameSubordinatesUpdatedSuccess(subordinatesName));
         Assert.assertTrue(reportToPO.isReportingMethodSubordinatesUpdatedSuccess(reportingMethodSubordinates));
     }
@@ -336,11 +351,82 @@ public class PIM_01_Employee extends BaseTest {
     @Description("Qualifications")
     @Test
     public void Employee_10_Qualifications() {
+        qualificationsPO = reportToPO.openQualificationsPage();
 
+        qualificationsPO.clickToAddWorkExperienceButton();
+        qualificationsPO.enterToCompanyTextbox(companyName);
+        qualificationsPO.enterToJobTitleTextbox(jobTitleExperience);
+        qualificationsPO.enterToStartDateOfWorkTextbox(startDateOfWork);
+        qualificationsPO.enterToEndDateOfWorkTextbox(endDateOfWork);
+
+        qualificationsPO.clickSaveButtonAtQualificationContainer();
+        qualificationsPO.waitAllLoadingIconInvisible(driver);
+
+        Assert.assertTrue(qualificationsPO.isCompanyUpdatedSuccess(companyName));
+        Assert.assertTrue(qualificationsPO.isJobTitleUpdatedSuccess(jobTitleExperience));
+        Assert.assertTrue(qualificationsPO.isStartDateOfWorkUpdatedSuccess(startDateOfWork));
+        Assert.assertTrue(qualificationsPO.isEndDateOfWorkUpdatedSuccess(endDateOfWork));
+
+        qualificationsPO.clickToAddEducationButton();
+        qualificationsPO.selectEducationLevelDropdown(educationLevel);
+        qualificationsPO.enterToInstituteTextbox(institute);
+        qualificationsPO.enterToYearTextbox(yearEducation);
+        qualificationsPO.enterToMajorTextbox(major);
+        qualificationsPO.enterToScoreTextbox(score);
+        qualificationsPO.enterToStartDateEducationTextbox(startDateEducation);
+        qualificationsPO.enterToEndDateEducationTextbox(endDateEducation);
+
+        qualificationsPO.clickSaveButtonAtQualificationContainer();
+        qualificationsPO.waitAllLoadingIconInvisible(driver);
+
+        Assert.assertTrue(qualificationsPO.isEducationLevelUpdatedSuccess(educationLevel));
+        Assert.assertTrue(qualificationsPO.isYearUpdatedSuccess(yearEducation));
+        Assert.assertTrue(qualificationsPO.isScoreUpdatedSuccess(score));
+
+        qualificationsPO.clickToAddSkillsButton();
+        qualificationsPO.selectSkillDropdown(skillName);
+        qualificationsPO.enterToYearOfExperienceTextbox(yearOfExperience);
+
+        qualificationsPO.clickSaveButtonAtQualificationContainer();
+        qualificationsPO.waitAllLoadingIconInvisible(driver);
+
+        Assert.assertTrue(qualificationsPO.isSkillUpdatedSuccess(skillName));
+        Assert.assertTrue(qualificationsPO.isYearOfExperienceUpdatedSuccess(yearOfExperience));
+
+        qualificationsPO.clickToAddLanguageButton();
+        qualificationsPO.selectLanguageDropdown(language);
+        qualificationsPO.selectFluencyDropdown(fluency);
+        qualificationsPO.selectCompetencyDropdown(competency);
+
+        qualificationsPO.clickSaveButtonAtQualificationContainer();
+        qualificationsPO.waitAllLoadingIconInvisible(driver);
+
+        Assert.assertTrue(qualificationsPO.isLanguageUpdatedSuccess(language));
+        Assert.assertTrue(qualificationsPO.isFluencyUpdatedSuccess(fluency));
+        Assert.assertTrue(qualificationsPO.isCompetencyUpdatedSuccess(competency));
+
+        qualificationsPO.clickToAddLicenseButton();
+        qualificationsPO.selectLicenseTypeDropdown(licenseName);
+        qualificationsPO.enterToLicenseNumberTextbox(licenseNumber);
+        qualificationsPO.enterToStartDateLicenseTextbox(startDateLicense);
+        qualificationsPO.enterToEndDateLicenseTextbox(endDateLicense);
+
+        qualificationsPO.clickSaveButtonAtQualificationContainer();
+        qualificationsPO.waitAllLoadingIconInvisible(driver);
+
+        Assert.assertTrue(qualificationsPO.isLicenseTypeUpdatedSuccess(licenseName));
+        Assert.assertTrue(qualificationsPO.isStartDateLicenseUpdatedSuccess(startDateLicense));
+        Assert.assertTrue(qualificationsPO.isEndDateLicenseUpdatedSuccess(endDateLicense));
     }
 
     @AfterClass
     public void afterClass() {
+        employeeListPage = qualificationsPO.openToPIMPage();
+
+        employeeListPage.clickToNewRecordCheckbox(employeeID);
+        employeeListPage.clickToDeleteRecordButton(employeeID);
+        employeeListPage.clickToAcceptDeleteButton();
+
         closeBrowser();
     }
 }

@@ -422,12 +422,20 @@ public class BasePage {
     }
 
     public void clickToElementByJS(WebDriver driver, String locator, String... restParams) {
-        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", getWebElement(driver, getDynamicLocator(locator, restParams)));
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", getDynamicLocator(locator, restParams));
         sleepInSecond(3);
     }
 
     public void scrollToElementOnTop(WebDriver driver, String locator) {
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", getWebElement(driver, locator));
+    }
+
+    public void scrollToElementOnTop(WebDriver driver, String locator, String... restParams) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(true);", getDynamicLocator(locator, restParams));
+    }
+
+    public void scrollToElementOnDown(WebDriver driver, String locator, String... restParams) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView(false);", getDynamicLocator(locator, restParams));
     }
 
     public void scrollToElementOnDown(WebDriver driver, String locator) {
@@ -498,7 +506,6 @@ public class BasePage {
 
     public void waitForElementSelected(WebDriver driver, String locator, String... restParams) {
         new WebDriverWait(driver, Duration.ofSeconds(GlobalConstants.LONG_TIMEOUT)).until(ExpectedConditions.elementToBeSelected(getWebElement(driver, getDynamicLocator(locator, restParams))));
-
     }
 
     public boolean isPageLoadedSuccess(WebDriver driver) {
