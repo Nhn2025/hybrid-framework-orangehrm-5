@@ -337,6 +337,25 @@ public class BasePage {
             return true;
     }
 
+    // Case 03: Element không có trong UI và không có trên UI
+    public boolean isElementUndisplayed(WebDriver driver, String locator, String... restParams) {
+        // Trước khi tìm element thì set time ngắn thôi
+        setImplicitWait(driver, GlobalConstants.SHORT_TIMEOUT);
+        List<WebElement> elements = getListWebElement(driver, locator, restParams);
+        // Trả lại timeout cho các step còn lại
+        setImplicitWait(driver, GlobalConstants.LONG_TIMEOUT);
+
+        if (elements.size() > 0 && elements.get(0).isDisplayed())
+            // Case 01: Element có trong UI và DOM -> false
+            return false;
+        else if (elements.size() > 0 && !elements.get(0).isDisplayed())
+            // Case 02: Không có trên UI và có trong DOM -> true
+            return true;
+        else // elements.size() == 0
+            // Case 03: Không có trên UI và không có trong DOM -> true
+            return true;
+    }
+
     public boolean isElementSelected(WebDriver driver, String locator) {
         return getWebElement(driver, locator).isSelected();
     }

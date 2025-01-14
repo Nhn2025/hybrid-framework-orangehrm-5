@@ -37,4 +37,9 @@ public class EmployeeListPO extends EmployeeTabsPO {
         waitForElementClickable(driver, EmployeeListPUI.ACCEPT_DELETE_BUTTON);
         clickToElement(driver, EmployeeListPUI.ACCEPT_DELETE_BUTTON);
     }
+
+    @Step("Employee is deleted")
+    public boolean isEmployeeDeleted(String employeeID) {
+        return isElementUndisplayed(driver, EmployeeListPUI.DELETE_RECORD_BUTTON, employeeID);
+    }
 }

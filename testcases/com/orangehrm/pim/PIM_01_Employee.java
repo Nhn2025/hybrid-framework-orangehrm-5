@@ -427,6 +427,8 @@ public class PIM_01_Employee extends BaseTest {
         employeeListPage.clickToDeleteRecordButton(employeeID);
         employeeListPage.clickToAcceptDeleteButton();
 
+        Assert.assertTrue(employeeListPage.isEmployeeDeleted(employeeID));
+
         closeBrowser();
     }
 }
