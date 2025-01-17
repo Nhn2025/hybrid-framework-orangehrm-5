@@ -186,8 +186,8 @@ public class BaseTest {
         }
     }
 
-    public String getDataTest(String env, String info) throws FileNotFoundException {
-        return new FileReader().readYMLFile(GlobalConstants.UPLOAD_PATH + "dataTest.yml", env, info);
+    public String getDataTest(String categoryName, String info) throws FileNotFoundException {
+        return new FileReader().readYMLFile(GlobalConstants.UPLOAD_PATH + "dataTest.yml", categoryName, info);
     }
 
 }

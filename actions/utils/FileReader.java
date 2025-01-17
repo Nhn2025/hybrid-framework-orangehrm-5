@@ -21,11 +21,11 @@ public class FileReader {
         return (HashMap) yamlMap.get(node);
     }
 
-    public String readYMLFile(String fileName, String env, String info) throws FileNotFoundException {
+    public String readYMLFile(String fileName, String categoryName, String info) throws FileNotFoundException {
         Yaml yaml = new Yaml();
         InputStream inputStream = new FileInputStream(fileName);
         HashMap yamlMap = yaml.load(inputStream);
-        HashMap configInfo = (HashMap) yamlMap.get(env);
+        HashMap configInfo = (HashMap) yamlMap.get(categoryName);
         return configInfo.get(info).toString();
     }
 }
