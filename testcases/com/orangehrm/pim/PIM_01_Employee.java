@@ -18,6 +18,8 @@ import pageObjects.orangehrm.LoginPO;
 import pageObjects.orangehrm.PageGenerator;
 import pageObjects.orangehrm.pim.employee.*;
 
+import java.io.FileNotFoundException;
+
 @Epic("Regression Tests")
 @Feature("Login Tests")
 public class PIM_01_Employee extends BaseTest {
@@ -34,20 +36,7 @@ public class PIM_01_Employee extends BaseTest {
     private SalaryPO salaryPO;
     private JobPO jobPO;
     private QualificationsPO qualificationsPO;
-    private String employeeID, firstName, lastName, editFirstName, editLastName;
-    private String driverLicenseNumber, driverLicenseExpiryDate, nationality, maritalStatus, dateOfBirth, gender;
-    private String streetName, cityName, provinceName, postalCode, countryName, phoneNumber, email;
-    private String emergencyName, emergencyRelationship, emergencyHomeTelephone;
-    private String dependentsName, dependentsRelationship, dependentsDateOfBirth;
-    private String joinedDate, jobTitle, jobCategory, location, employmentStatus;
-    private String salaryComponentName, payGradeName, payFrequencyName, currencyName, salaryAmount;
-    private String supervisorsName, reportingMethodSupervisors, subordinatesName, reportingMethodSubordinates;
-    private String companyName, jobTitleExperience, startDateOfWork, endDateOfWork, educationLevel, institute, major, score;
-    private String yearEducation, startDateEducation, endDateEducation, skillName, yearOfExperience, language, fluency;
-    private String competency, licenseName, licenseNumber, startDateLicense, endDateLicense;
-    private String avatarImageName = "doraemon.png";
-    private String emergencyAttachmentsImageName = "nobita.png";
-    private String dependentsAttachmentsImageName = "dorami.png";
+    private String employeeID;
 
     @Description("Login to application")
     @Severity(SeverityLevel.MINOR)
@@ -58,85 +47,6 @@ public class PIM_01_Employee extends BaseTest {
         driver.manage().window().maximize();
         loginPage = PageGenerator.getLoginPage(driver);
 
-        // Thông tin cá nhân
-        firstName = "Thu";
-        lastName = "Duong";
-        editFirstName = "Dung";
-        editLastName = "Duong";
-        dateOfBirth = "1995-09-10";
-        gender = "Male";
-        nationality = "Vietnamese";
-        maritalStatus = "Single";
-
-        // Thông tin liên lạc
-        postalCode = "900000";
-        streetName = "30/04 Street";
-        cityName = "Can Tho";
-        provinceName = "Ninh Kieu";
-        countryName = "Viet Nam";
-        phoneNumber = "0388653728";
-        email = getEmailRandom();
-
-        // Thông tin khẩn cấp
-        emergencyName = "Duong Van An";
-        emergencyRelationship = "Brother";
-        emergencyHomeTelephone = "03667820298";
-
-        // Thông tin người phụ thuộc
-        dependentsName = "Vo Thanh Hoa";
-        dependentsRelationship = "Child";
-        dependentsDateOfBirth = "2010-09-10";
-
-        // Thông tin công việc
-        joinedDate = "2020-10-11";
-        jobTitle = "Automation Tester";
-        jobCategory = "Technicians";
-        location = "Can Tho Branch";
-        employmentStatus = "Fulltime Employee";
-
-        // Thông tin lương
-        salaryComponentName = "Bonus Salary";
-        payGradeName = "Junior";
-        payFrequencyName = "Hourly";
-        currencyName = "Vietnamese Dong";
-        salaryAmount = "10000000";
-
-        // Thông tin giám sát và cấp dưới
-        supervisorsName = "Vo Han";
-        reportingMethodSupervisors = "Direct";
-        subordinatesName = "Nguyen Lan";
-        reportingMethodSubordinates = "Indirect";
-
-        // Thông tin kinh nghiệm làm việc
-        companyName = "FPT Software";
-        jobTitleExperience = "Auto Tester";
-        startDateOfWork = "2024-10-11";
-        endDateOfWork = "2025-02-03";
-
-        // Thông tin học vấn
-        educationLevel = "Dai hoc Can Tho - CT";
-        institute = "CNTT";
-        major = "He thong thong tin";
-        score = "3.8";
-        yearEducation = "4";
-        startDateEducation = "2021-10-10";
-        endDateEducation = "2025-12-12";
-
-        // Thông tin kỹ năng
-        skillName = "Java";
-        yearOfExperience = "2";
-        language = "English";
-        fluency = "Writing";
-        competency = "Basic";
-
-        // Thông tin chứng chỉ
-        licenseName = "ISTQB Advanced";
-        licenseNumber = "9201723";
-        startDateLicense = "2022-10-11";
-        endDateLicense = "2023-10-09";
-        driverLicenseNumber = "012345667";
-        driverLicenseExpiryDate = "2023-09-10";
-
         loginPage.enterToUsernameTextbox();
         loginPage.enterToPasswordTextbox();
         dashboardPage = loginPage.clickToLoginButton();
@@ -144,12 +54,13 @@ public class PIM_01_Employee extends BaseTest {
 
     @Description("Add new employee")
     @Test
-    public void Employee_01_Add_New_Employee() {
+    public void Employee_01_Add_New_Employee() throws FileNotFoundException {
         employeeListPage = dashboardPage.openToPIMPage();
 
         addNewEmployeePage = employeeListPage.clickToAddEmployeeButton();
-        addNewEmployeePage.enterToFirstNameTextbox(firstName);
-        addNewEmployeePage.enterToLastNameTextbox(lastName);
+
+        addNewEmployeePage.enterToFirstNameTextbox(getDataTest("info", "firstName"));
+        addNewEmployeePage.enterToLastNameTextbox(getDataTest("info", "lastName"));
 
         employeeID = addNewEmployeePage.getEmployeeID();
         personalDetailsPage = addNewEmployeePage.clickToSaveButtonAtEmployeeContainer();
@@ -157,11 +68,11 @@ public class PIM_01_Employee extends BaseTest {
 
     @Description("Upload avatar")
     @Test
-    public void Employee_02_Upload_Avatar() {
+    public void Employee_02_Upload_Avatar() throws FileNotFoundException {
         personalDetailsPage.clickToEmployeeAvatarImage();
 
         Dimension beforeUpload = personalDetailsPage.getAvatarSize();
-        personalDetailsPage.uploadMultipleFiles(driver, avatarImageName);
+        personalDetailsPage.uploadMultipleFiles(driver, getDataTest("image", "avatarImageName"));
         personalDetailsPage.clickToSaveButtonAtProfileContainer();
 
         Assert.assertTrue(personalDetailsPage.isUpdateSuccessMessageDisplayed(driver));
@@ -171,252 +82,252 @@ public class PIM_01_Employee extends BaseTest {
 
     @Description("Personal details")
     @Test
-    public void Employee_03_Personal_Details() throws InterruptedException {
+    public void Employee_03_Personal_Details() throws InterruptedException, FileNotFoundException {
         personalDetailsPage.openPersonalDetailPage();
 
-        personalDetailsPage.enterToFirstNameTextbox(editFirstName);
-        personalDetailsPage.enterToLastNameTextbox(editLastName);
+        personalDetailsPage.enterToFirstNameTextbox(getDataTest("info", "editFirstName"));
+        personalDetailsPage.enterToLastNameTextbox(getDataTest("info", "editLastName"));
 
         Assert.assertEquals(personalDetailsPage.getEmployeeID(), employeeID);
 
-        personalDetailsPage.enterToDriverLicenseTextbox(driverLicenseNumber);
-        personalDetailsPage.enterToExpiryDateLicenseTextbox(driverLicenseExpiryDate);
-        personalDetailsPage.selectNationalityDropdown(nationality);
-        personalDetailsPage.selectMaritalStatusDropdown(maritalStatus);
-        personalDetailsPage.enterToDateOfBirthTextbox(dateOfBirth);
-        personalDetailsPage.selectGenderMaleRadioButton(gender);
+        personalDetailsPage.enterToDriverLicenseTextbox(getDataTest("license", "driverLicenseNumber"));
+        personalDetailsPage.enterToExpiryDateLicenseTextbox(getDataTest("license", "driverLicenseExpiryDate"));
+        personalDetailsPage.selectNationalityDropdown(getDataTest("info", "nationality"));
+        personalDetailsPage.selectMaritalStatusDropdown(getDataTest("info", "maritalStatus"));
+        personalDetailsPage.enterToDateOfBirthTextbox(getDataTest("info", "dateOfBirth"));
+        personalDetailsPage.selectGenderMaleRadioButton(getDataTest("info", "gender"));
         personalDetailsPage.clickSaveButtonAtPersonalDetailContainer();
 
         Assert.assertTrue(personalDetailsPage.isUpdateSuccessMessageDisplayed(driver));
         personalDetailsPage.waitAllLoadingIconInvisible(driver);
-        Assert.assertEquals(personalDetailsPage.getFirstNameTextboxValue(), editFirstName);
-        Assert.assertEquals(personalDetailsPage.getLastNameTextboxValue(), editLastName);
+        Assert.assertEquals(personalDetailsPage.getFirstNameTextboxValue(), getDataTest("info", "editFirstName"));
+        Assert.assertEquals(personalDetailsPage.getLastNameTextboxValue(), getDataTest("info", "editLastName"));
         Assert.assertEquals(personalDetailsPage.getEmployeeID(), employeeID);
-        Assert.assertEquals(personalDetailsPage.getDriverLicenseTextboxValue(), driverLicenseNumber);
-        Assert.assertEquals(personalDetailsPage.getExpiryDateLicenseTextboxValue(), driverLicenseExpiryDate);
-        Assert.assertEquals(personalDetailsPage.getNationalityDropdownValue(), nationality);
-        Assert.assertEquals(personalDetailsPage.getMaritalStatusDropdownValue(), maritalStatus);
-        Assert.assertEquals(personalDetailsPage.getDateOfBirthTextboxValue(), dateOfBirth);
-        Assert.assertTrue(personalDetailsPage.isGenderMaleRadioSelected(gender));
+        Assert.assertEquals(personalDetailsPage.getDriverLicenseTextboxValue(), getDataTest("license", "driverLicenseNumber"));
+        Assert.assertEquals(personalDetailsPage.getExpiryDateLicenseTextboxValue(), getDataTest("license", "driverLicenseExpiryDate"));
+        Assert.assertEquals(personalDetailsPage.getNationalityDropdownValue(), getDataTest("info", "nationality"));
+        Assert.assertEquals(personalDetailsPage.getMaritalStatusDropdownValue(), getDataTest("info", "maritalStatus"));
+        Assert.assertEquals(personalDetailsPage.getDateOfBirthTextboxValue(), getDataTest("info", "dateOfBirth"));
+        Assert.assertTrue(personalDetailsPage.isGenderMaleRadioSelected(getDataTest("info", "gender")));
     }
 
     @Description("Contact details")
     @Test
-    public void Employee_04_Contact_Details() {
+    public void Employee_04_Contact_Details() throws FileNotFoundException {
         contactDetailsPO = personalDetailsPage.openContactDetailsPage();
 
-        contactDetailsPO.enterToStreetTextbox(streetName);
-        contactDetailsPO.enterToCityTextbox(cityName);
-        contactDetailsPO.enterToProvinceTextbox(provinceName);
-        contactDetailsPO.enterToPostalCodeTextbox(postalCode);
-        contactDetailsPO.selectCountryDropdown(countryName);
-        contactDetailsPO.enterToHomeTelephoneTextbox(phoneNumber);
-        contactDetailsPO.enterToWorkEmailTextbox(email);
+        contactDetailsPO.enterToStreetTextbox(getDataTest("contact", "streetName"));
+        contactDetailsPO.enterToCityTextbox(getDataTest("contact", "cityName"));
+        contactDetailsPO.enterToProvinceTextbox(getDataTest("contact", "provinceName"));
+        contactDetailsPO.enterToPostalCodeTextbox(getDataTest("contact", "postalCode"));
+        contactDetailsPO.selectCountryDropdown(getDataTest("contact", "countryName"));
+        contactDetailsPO.enterToHomeTelephoneTextbox(getDataTest("contact", "phoneNumber"));
+        contactDetailsPO.enterToWorkEmailTextbox(getDataTest("contact", "email"));
         contactDetailsPO.clickSaveButtonAtContactDetailContainer();
 
         Assert.assertTrue(contactDetailsPO.isUpdateSuccessMessageDisplayed(driver));
         contactDetailsPO.waitAllLoadingIconInvisible(driver);
-        Assert.assertEquals(contactDetailsPO.getStreetTextboxValue(), streetName);
-        Assert.assertEquals(contactDetailsPO.getCityTextboxValue(), cityName);
-        Assert.assertEquals(contactDetailsPO.getProvinceTextboxValue(), provinceName);
-        Assert.assertEquals(contactDetailsPO.getPostalCodeTextboxValue(), postalCode);
-        Assert.assertEquals(contactDetailsPO.getCountryDropdownValue(), countryName);
-        Assert.assertEquals(contactDetailsPO.getHomeTelephoneTextboxValue(), phoneNumber);
-        Assert.assertEquals(contactDetailsPO.getWorkEmailTextbox(), email);
+        Assert.assertEquals(contactDetailsPO.getStreetTextboxValue(), getDataTest("contact", "streetName"));
+        Assert.assertEquals(contactDetailsPO.getCityTextboxValue(), getDataTest("contact", "cityName"));
+        Assert.assertEquals(contactDetailsPO.getProvinceTextboxValue(), getDataTest("contact", "provinceName"));
+        Assert.assertEquals(contactDetailsPO.getPostalCodeTextboxValue(), getDataTest("contact", "postalCode"));
+        Assert.assertEquals(contactDetailsPO.getCountryDropdownValue(), getDataTest("contact", "countryName"));
+        Assert.assertEquals(contactDetailsPO.getHomeTelephoneTextboxValue(), getDataTest("contact", "phoneNumber"));
+        Assert.assertEquals(contactDetailsPO.getWorkEmailTextbox(), getDataTest("contact", "email"));
     }
 
     @Description("Emergency details")
     @Test
-    public void Employee_05_Emergency_Details() {
+    public void Employee_05_Emergency_Details() throws FileNotFoundException {
         emergencyContactsPO = contactDetailsPO.openEmergencyContactsPage();
 
         emergencyContactsPO.clickAddButtonAtAssignedEmergencyContacts();
-        emergencyContactsPO.enterToNameTextbox(emergencyName);
-        emergencyContactsPO.enterToRelationshipTextbox(emergencyRelationship);
-        emergencyContactsPO.enterToHomeTelephoneTextbox(emergencyHomeTelephone);
+        emergencyContactsPO.enterToNameTextbox(getDataTest("emergency", "emergencyName"));
+        emergencyContactsPO.enterToRelationshipTextbox(getDataTest("emergency", "emergencyRelationship"));
+        emergencyContactsPO.enterToHomeTelephoneTextbox(getDataTest("emergency", "emergencyHomeTelephone"));
         emergencyContactsPO.clickToSaveButtonAtEmergencyDetailsContainer();
 
         Assert.assertTrue(emergencyContactsPO.isSaveSuccessMessageDisplayed(driver));
         emergencyContactsPO.waitAllLoadingIconInvisible(driver);
-        Assert.assertTrue(emergencyContactsPO.isNameUpdatedSuccess(emergencyName));
-        Assert.assertTrue(emergencyContactsPO.isRelationshipUpdatedSuccess(emergencyRelationship));
-        Assert.assertTrue(emergencyContactsPO.isHomeTelephoneUpdatedSuccess(emergencyHomeTelephone));
+        Assert.assertTrue(emergencyContactsPO.isNameUpdatedSuccess(getDataTest("emergency", "emergencyName")));
+        Assert.assertTrue(emergencyContactsPO.isRelationshipUpdatedSuccess(getDataTest("emergency", "emergencyRelationship")));
+        Assert.assertTrue(emergencyContactsPO.isHomeTelephoneUpdatedSuccess(getDataTest("emergency", "emergencyHomeTelephone")));
 
         emergencyContactsPO.clickAddButtonAtAttachments();
-        emergencyContactsPO.uploadMultipleFiles(driver, emergencyAttachmentsImageName);
+        emergencyContactsPO.uploadMultipleFiles(driver, getDataTest("image", "emergencyAttachmentsImageName"));
         emergencyContactsPO.clickToSaveButtonAtEmergencyDetailsContainer();
 
         Assert.assertTrue(emergencyContactsPO.isSaveSuccessMessageDisplayed(driver));
         emergencyContactsPO.waitAllLoadingIconInvisible(driver);
-        Assert.assertTrue(emergencyContactsPO.isAttachmentsImageUpdatedSuccess(emergencyAttachmentsImageName));
+        Assert.assertTrue(emergencyContactsPO.isAttachmentsImageUpdatedSuccess(getDataTest("image", "emergencyAttachmentsImageName")));
     }
 
     @Description("Assigned dependents")
     @Test
-    public void Employee_06_Assigned_Dependents() {
+    public void Employee_06_Assigned_Dependents() throws FileNotFoundException {
         assignedDependentsPO = emergencyContactsPO.openAssignedDependentsPage();
 
         assignedDependentsPO.clickAddButtonAtAssignedDependents();
-        assignedDependentsPO.enterToNameTextbox(dependentsName);
-        assignedDependentsPO.selectRelationshipDropdown(dependentsRelationship);
-        assignedDependentsPO.enterToDateOfBirthTextbox(dependentsDateOfBirth);
+        assignedDependentsPO.enterToNameTextbox(getDataTest("dependents", "dependentsName"));
+        assignedDependentsPO.selectRelationshipDropdown(getDataTest("dependents", "dependentsRelationship"));
+        assignedDependentsPO.enterToDateOfBirthTextbox(getDataTest("dependents", "dependentsDateOfBirth"));
         assignedDependentsPO.clickToSaveButtonAtAssignedDependentsContainer();
 
         Assert.assertTrue(assignedDependentsPO.isSaveSuccessMessageDisplayed(driver));
         assignedDependentsPO.waitAllLoadingIconInvisible(driver);
-        Assert.assertTrue(assignedDependentsPO.isNameUpdatedSuccess(dependentsName));
-        Assert.assertTrue(assignedDependentsPO.isRelationshipUpdatedSuccess(dependentsRelationship));
-        Assert.assertTrue(assignedDependentsPO.isDateOfBirthUpdatedSuccess(dependentsDateOfBirth));
+        Assert.assertTrue(assignedDependentsPO.isNameUpdatedSuccess(getDataTest("dependents", "dependentsName")));
+        Assert.assertTrue(assignedDependentsPO.isRelationshipUpdatedSuccess(getDataTest("dependents", "dependentsRelationship")));
+        Assert.assertTrue(assignedDependentsPO.isDateOfBirthUpdatedSuccess(getDataTest("dependents", "dependentsDateOfBirth")));
 
         assignedDependentsPO.clickAddButtonAtAttachments();
-        assignedDependentsPO.uploadMultipleFiles(driver, dependentsAttachmentsImageName);
+        assignedDependentsPO.uploadMultipleFiles(driver, getDataTest("image", "dependentsAttachmentsImageName"));
         assignedDependentsPO.clickToSaveButtonAtAssignedDependentsContainer();
 
         Assert.assertTrue(assignedDependentsPO.isSaveSuccessMessageDisplayed(driver));
         assignedDependentsPO.waitAllLoadingIconInvisible(driver);
-        Assert.assertTrue(assignedDependentsPO.isAttachmentsImageUpdatedSuccess(dependentsAttachmentsImageName));
+        Assert.assertTrue(assignedDependentsPO.isAttachmentsImageUpdatedSuccess(getDataTest("image", "dependentsAttachmentsImageName")));
     }
 
     @Description("Edit view job")
     @Test
-    public void Employee_07_Edit_View_Job() {
+    public void Employee_07_Edit_View_Job() throws FileNotFoundException {
         jobPO = assignedDependentsPO.openJobPage();
 
-        jobPO.enterToJoinedDateTextbox(joinedDate);
-        jobPO.selectJobTitleDropdown(jobTitle);
-        jobPO.selectJobCategoryDropdown(jobCategory);
-        jobPO.selectLocationDropdown(location);
-        jobPO.selectEmploymentStatusDropdown(employmentStatus);
+        jobPO.enterToJoinedDateTextbox(getDataTest("job", "joinedDate"));
+        jobPO.selectJobTitleDropdown(getDataTest("job", "jobTitle"));
+        jobPO.selectJobCategoryDropdown(getDataTest("job", "jobCategory"));
+        jobPO.selectLocationDropdown(getDataTest("job", "location"));
+        jobPO.selectEmploymentStatusDropdown(getDataTest("job", "employmentStatus"));
         jobPO.clickSaveButtonAtJobContainer();
 
         Assert.assertTrue(jobPO.isUpdateSuccessMessageDisplayed(driver));
         jobPO.waitAllLoadingIconInvisible(driver);
-        Assert.assertEquals(jobPO.getTextJoinedDateTextbox(), joinedDate);
-        Assert.assertEquals(jobPO.getJobTitleDropdownValue(), jobTitle);
-        Assert.assertEquals(jobPO.getJobCategoryDropdownValue(), jobCategory);
-        Assert.assertEquals(jobPO.getLocationDropdownValue(), location);
-        Assert.assertEquals(jobPO.getEmploymentStatusDropdownValue(), employmentStatus);
+        Assert.assertEquals(jobPO.getTextJoinedDateTextbox(), getDataTest("job", "joinedDate"));
+        Assert.assertEquals(jobPO.getJobTitleDropdownValue(), getDataTest("job", "jobTitle"));
+        Assert.assertEquals(jobPO.getJobCategoryDropdownValue(), getDataTest("job", "jobCategory"));
+        Assert.assertEquals(jobPO.getLocationDropdownValue(), getDataTest("job", "location"));
+        Assert.assertEquals(jobPO.getEmploymentStatusDropdownValue(), getDataTest("job", "employmentStatus"));
     }
 
     @Description("Edit view salary")
     @Test
-    public void Employee_08_Edit_View_Salary() {
+    public void Employee_08_Edit_View_Salary() throws FileNotFoundException {
         salaryPO = emergencyContactsPO.openSalaryPage();
 
         salaryPO.clickAddButtonAtAddSalaryComponent();
-        salaryPO.enterToSalaryComponentTextbox(salaryComponentName);
-        salaryPO.selectPayGradeDropdown(payGradeName);
+        salaryPO.enterToSalaryComponentTextbox(getDataTest("salary", "salaryComponentName"));
+        salaryPO.selectPayGradeDropdown(getDataTest("salary", "payGradeName"));
 
-        salaryPO.selectPayFrequencyDropdown(payFrequencyName);
-        salaryPO.selectCurrencyDropdown(currencyName);
-        salaryPO.enterToAmountTextbox(salaryAmount);
+        salaryPO.selectPayFrequencyDropdown(getDataTest("salary", "payFrequencyName"));
+        salaryPO.selectCurrencyDropdown(getDataTest("salary", "currencyName"));
+        salaryPO.enterToAmountTextbox(getDataTest("salary", "salaryAmount"));
         salaryPO.clickToSaveButtonAtSalaryContainer();
 
         Assert.assertTrue(salaryPO.isSaveSuccessMessageDisplayed(driver));
         salaryPO.waitAllLoadingIconInvisible(driver);
-        Assert.assertTrue(salaryPO.isSalaryComponentUpdatedSuccess(salaryComponentName));
-        Assert.assertTrue(salaryPO.isPayFrequencyUpdatedSuccess(payFrequencyName));
-        Assert.assertTrue(salaryPO.isCurrencyUpdatedSuccess(currencyName));
-        Assert.assertTrue(salaryPO.isAmountUpdatedSuccess(salaryAmount));
+        Assert.assertTrue(salaryPO.isSalaryComponentUpdatedSuccess(getDataTest("salary", "salaryComponentName")));
+        Assert.assertTrue(salaryPO.isPayFrequencyUpdatedSuccess(getDataTest("salary", "payFrequencyName")));
+        Assert.assertTrue(salaryPO.isCurrencyUpdatedSuccess(getDataTest("salary", "currencyName")));
+        Assert.assertTrue(salaryPO.isAmountUpdatedSuccess(getDataTest("salary", "salaryAmount")));
     }
 
     @Description("Edit view Report-to")
     @Test
-    public void Employee_09_Edit_View_Report_To() {
+    public void Employee_09_Edit_View_Report_To() throws FileNotFoundException {
         reportToPO = salaryPO.openReportToPage();
 
         reportToPO.clickAddAssignedSupervisorsButton();
-        reportToPO.enterToNameSupervisorsTextBox(supervisorsName);
+        reportToPO.enterToNameSupervisorsTextBox(getDataTest("supervisors", "supervisorsName"));
         reportToPO.selectNameSupervisorsDropdown();
-        reportToPO.selectReportingMethodSupervisorsDropdown(reportingMethodSupervisors);
+        reportToPO.selectReportingMethodSupervisorsDropdown(getDataTest("supervisors", "reportingMethodSupervisors"));
         reportToPO.clickSaveButtonAtReportToContainer();
 
         Assert.assertTrue(reportToPO.isSaveSuccessMessageDisplayed(driver));
         reportToPO.waitAllLoadingIconInvisible(driver);
-        Assert.assertTrue(reportToPO.isNameSupervisorsUpdatedSuccess(supervisorsName));
-        Assert.assertTrue(reportToPO.isReportingMethodSupervisorsUpdatedSuccess(reportingMethodSupervisors));
+        Assert.assertTrue(reportToPO.isNameSupervisorsUpdatedSuccess(getDataTest("supervisors", "supervisorsName")));
+        Assert.assertTrue(reportToPO.isReportingMethodSupervisorsUpdatedSuccess(getDataTest("supervisors", "reportingMethodSupervisors")));
 
         reportToPO.clickAddAssignedSubordinatesButton();
-        reportToPO.enterToNameSubordinatesTextBox(subordinatesName);
+        reportToPO.enterToNameSubordinatesTextBox(getDataTest("supervisors", "subordinatesName"));
         reportToPO.selectNameSubordinatesDropdown();
-        reportToPO.selectReportingMethodSubordinatesDropdown(reportingMethodSubordinates);
+        reportToPO.selectReportingMethodSubordinatesDropdown(getDataTest("supervisors", "reportingMethodSubordinates"));
         reportToPO.clickSaveButtonAtReportToContainer();
 
         Assert.assertTrue(reportToPO.isSaveSuccessMessageDisplayed(driver));
         reportToPO.waitAllLoadingIconInvisible(driver);
-        Assert.assertTrue(reportToPO.isNameSubordinatesUpdatedSuccess(subordinatesName));
-        Assert.assertTrue(reportToPO.isReportingMethodSubordinatesUpdatedSuccess(reportingMethodSubordinates));
+        Assert.assertTrue(reportToPO.isNameSubordinatesUpdatedSuccess(getDataTest("supervisors", "subordinatesName")));
+        Assert.assertTrue(reportToPO.isReportingMethodSubordinatesUpdatedSuccess(getDataTest("supervisors", "reportingMethodSubordinates")));
     }
 
     @Description("Qualifications")
     @Test
-    public void Employee_10_Qualifications() {
+    public void Employee_10_Qualifications() throws FileNotFoundException {
         qualificationsPO = reportToPO.openQualificationsPage();
 
         qualificationsPO.clickToAddWorkExperienceButton();
-        qualificationsPO.enterToCompanyTextbox(companyName);
-        qualificationsPO.enterToJobTitleTextbox(jobTitleExperience);
-        qualificationsPO.enterToStartDateOfWorkTextbox(startDateOfWork);
-        qualificationsPO.enterToEndDateOfWorkTextbox(endDateOfWork);
+        qualificationsPO.enterToCompanyTextbox(getDataTest("experience", "companyName"));
+        qualificationsPO.enterToJobTitleTextbox(getDataTest("experience", "jobTitleExperience"));
+        qualificationsPO.enterToStartDateOfWorkTextbox(getDataTest("experience", "startDateOfWork"));
+        qualificationsPO.enterToEndDateOfWorkTextbox(getDataTest("experience", "endDateOfWork"));
 
         qualificationsPO.clickSaveButtonAtQualificationContainer();
         qualificationsPO.waitAllLoadingIconInvisible(driver);
 
-        Assert.assertTrue(qualificationsPO.isCompanyUpdatedSuccess(companyName));
-        Assert.assertTrue(qualificationsPO.isJobTitleUpdatedSuccess(jobTitleExperience));
-        Assert.assertTrue(qualificationsPO.isStartDateOfWorkUpdatedSuccess(startDateOfWork));
-        Assert.assertTrue(qualificationsPO.isEndDateOfWorkUpdatedSuccess(endDateOfWork));
+        Assert.assertTrue(qualificationsPO.isCompanyUpdatedSuccess(getDataTest("experience", "companyName")));
+        Assert.assertTrue(qualificationsPO.isJobTitleUpdatedSuccess(getDataTest("experience", "jobTitleExperience")));
+        Assert.assertTrue(qualificationsPO.isStartDateOfWorkUpdatedSuccess(getDataTest("experience", "jobTitleExperience")));
+        Assert.assertTrue(qualificationsPO.isEndDateOfWorkUpdatedSuccess(getDataTest("experience", "endDateOfWork")));
 
         qualificationsPO.clickToAddEducationButton();
-        qualificationsPO.selectEducationLevelDropdown(educationLevel);
-        qualificationsPO.enterToInstituteTextbox(institute);
-        qualificationsPO.enterToYearTextbox(yearEducation);
-        qualificationsPO.enterToMajorTextbox(major);
-        qualificationsPO.enterToScoreTextbox(score);
-        qualificationsPO.enterToStartDateEducationTextbox(startDateEducation);
-        qualificationsPO.enterToEndDateEducationTextbox(endDateEducation);
+        qualificationsPO.selectEducationLevelDropdown(getDataTest("education", "educationLevel"));
+        qualificationsPO.enterToInstituteTextbox(getDataTest("education", "institute"));
+        qualificationsPO.enterToYearTextbox(getDataTest("education", "yearEducation"));
+        qualificationsPO.enterToMajorTextbox(getDataTest("education", "major"));
+        qualificationsPO.enterToScoreTextbox(getDataTest("education", "score"));
+        qualificationsPO.enterToStartDateEducationTextbox(getDataTest("education", "startDateEducation"));
+        qualificationsPO.enterToEndDateEducationTextbox(getDataTest("education", "endDateEducation"));
 
         qualificationsPO.clickSaveButtonAtQualificationContainer();
         qualificationsPO.waitAllLoadingIconInvisible(driver);
 
-        Assert.assertTrue(qualificationsPO.isEducationLevelUpdatedSuccess(educationLevel));
-        Assert.assertTrue(qualificationsPO.isYearUpdatedSuccess(yearEducation));
-        Assert.assertTrue(qualificationsPO.isScoreUpdatedSuccess(score));
+        Assert.assertTrue(qualificationsPO.isEducationLevelUpdatedSuccess(getDataTest("education", "educationLevel")));
+        Assert.assertTrue(qualificationsPO.isYearUpdatedSuccess(getDataTest("education", "yearEducation")));
+        Assert.assertTrue(qualificationsPO.isScoreUpdatedSuccess(getDataTest("education", "score")));
 
         qualificationsPO.clickToAddSkillsButton();
-        qualificationsPO.selectSkillDropdown(skillName);
-        qualificationsPO.enterToYearOfExperienceTextbox(yearOfExperience);
+        qualificationsPO.selectSkillDropdown(getDataTest("skill", "skillName"));
+        qualificationsPO.enterToYearOfExperienceTextbox(getDataTest("skill", "yearOfExperience"));
 
         qualificationsPO.clickSaveButtonAtQualificationContainer();
         qualificationsPO.waitAllLoadingIconInvisible(driver);
 
-        Assert.assertTrue(qualificationsPO.isSkillUpdatedSuccess(skillName));
-        Assert.assertTrue(qualificationsPO.isYearOfExperienceUpdatedSuccess(yearOfExperience));
+        Assert.assertTrue(qualificationsPO.isSkillUpdatedSuccess(getDataTest("skill", "skillName")));
+        Assert.assertTrue(qualificationsPO.isYearOfExperienceUpdatedSuccess(getDataTest("skill", "yearOfExperience")));
 
         qualificationsPO.clickToAddLanguageButton();
-        qualificationsPO.selectLanguageDropdown(language);
-        qualificationsPO.selectFluencyDropdown(fluency);
-        qualificationsPO.selectCompetencyDropdown(competency);
+        qualificationsPO.selectLanguageDropdown(getDataTest("skill", "language"));
+        qualificationsPO.selectFluencyDropdown(getDataTest("skill", "fluency"));
+        qualificationsPO.selectCompetencyDropdown(getDataTest("skill", "competency"));
 
         qualificationsPO.clickSaveButtonAtQualificationContainer();
         qualificationsPO.waitAllLoadingIconInvisible(driver);
 
-        Assert.assertTrue(qualificationsPO.isLanguageUpdatedSuccess(language));
-        Assert.assertTrue(qualificationsPO.isFluencyUpdatedSuccess(fluency));
-        Assert.assertTrue(qualificationsPO.isCompetencyUpdatedSuccess(competency));
+        Assert.assertTrue(qualificationsPO.isLanguageUpdatedSuccess(getDataTest("skill", "language")));
+        Assert.assertTrue(qualificationsPO.isFluencyUpdatedSuccess(getDataTest("skill", "fluency")));
+        Assert.assertTrue(qualificationsPO.isCompetencyUpdatedSuccess(getDataTest("skill", "competency")));
 
         qualificationsPO.clickToAddLicenseButton();
-        qualificationsPO.selectLicenseTypeDropdown(licenseName);
-        qualificationsPO.enterToLicenseNumberTextbox(licenseNumber);
-        qualificationsPO.enterToStartDateLicenseTextbox(startDateLicense);
-        qualificationsPO.enterToEndDateLicenseTextbox(endDateLicense);
+        qualificationsPO.selectLicenseTypeDropdown(getDataTest("license", "licenseName"));
+        qualificationsPO.enterToLicenseNumberTextbox(getDataTest("license", "licenseNumber"));
+        qualificationsPO.enterToStartDateLicenseTextbox(getDataTest("license", "startDateLicense"));
+        qualificationsPO.enterToEndDateLicenseTextbox(getDataTest("license", "endDateLicense"));
 
         qualificationsPO.clickSaveButtonAtQualificationContainer();
         qualificationsPO.waitAllLoadingIconInvisible(driver);
 
-        Assert.assertTrue(qualificationsPO.isLicenseTypeUpdatedSuccess(licenseName));
-        Assert.assertTrue(qualificationsPO.isStartDateLicenseUpdatedSuccess(startDateLicense));
-        Assert.assertTrue(qualificationsPO.isEndDateLicenseUpdatedSuccess(endDateLicense));
+        Assert.assertTrue(qualificationsPO.isLicenseTypeUpdatedSuccess(getDataTest("license", "licenseName")));
+        Assert.assertTrue(qualificationsPO.isStartDateLicenseUpdatedSuccess(getDataTest("license", "startDateLicense")));
+        Assert.assertTrue(qualificationsPO.isEndDateLicenseUpdatedSuccess(getDataTest("license", "endDateLicense")));
     }
 
     @AfterClass

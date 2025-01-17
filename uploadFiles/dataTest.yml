@@ -1,0 +1,72 @@
+info:
+  firstName: Thu
+  lastName: Duong
+  editFirstName: Dung
+  editLastName: Duong
+  dateOfBirth: '1995-09-10'
+  gender: Male
+  nationality: Vietnamese
+  maritalStatus: Single
+contact:
+  postalCode: 900000
+  streetName: 30/04 Street
+  cityName: Can Tho
+  provinceName: Ninh Kieu
+  countryName: Viet Nam
+  phoneNumber: 0388653728
+  email: duongnhu@gmail.com
+emergency:
+  emergencyName: Duong Van An
+  emergencyRelationship: Brother
+  emergencyHomeTelephone: 03667820298
+dependents:
+  dependentsName: Vo Thanh Hoa
+  dependentsRelationship: Child
+  dependentsDateOfBirth: '2010-09-10'
+job:
+  joinedDate: '2020-10-11'
+  jobTitle: Automation Tester
+  jobCategory: Technicians
+  location: Can Tho Branch
+  employmentStatus: Fulltime Employee
+salary:
+  salaryComponentName: Bonus Salary
+  payGradeName: Junior
+  payFrequencyName: Hourly
+  currencyName: Vietnamese Dong
+  salaryAmount: 10000000
+supervisors:
+  supervisorsName: Vo Han
+  reportingMethodSupervisors: Direct
+  subordinatesName: Nguyen Lan
+  reportingMethodSubordinates: Indirect
+experience:
+  companyName: FPT Software
+  jobTitleExperience: Auto Tester
+  startDateOfWork: '2024-10-11'
+  endDateOfWork: '2025-02-03'
+education:
+  educationLevel: Dai hoc Can Tho - CT
+  institute: CNTT
+  major: He thong thong tin
+  score: 3.8
+  yearEducation: 4
+  startDateEducation: '2021-10-10'
+  endDateEducation: '2025-12-12'
+skill:
+  skillName: Java
+  yearOfExperience: 2
+  language: English
+  fluency: Writing
+  competency: Basic
+license:
+  licenseName: ISTQB Advanced
+  licenseNumber: 9201723
+  startDateLicense: '2022-10-11'
+  endDateLicense: '2023-10-09'
+  driverLicenseNumber: 012345667
+  driverLicenseExpiryDate: '2023-09-10'
+image:
+  avatarImageName: doraemon.png
+  emergencyAttachmentsImageName: nobita.png
+  dependentsAttachmentsImageName: dorami.png

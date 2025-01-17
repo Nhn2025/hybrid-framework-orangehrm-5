@@ -13,5 +13,6 @@
     <orderEntry type="library" name="libSelenium" level="project" />
     <orderEntry type="library" name="sourceDocs" level="project" />
     <orderEntry type="library" name="libAllure" level="project" />
+    <orderEntry type="library" name="libSnakeYAML" level="project" />
   </component>
 </module>

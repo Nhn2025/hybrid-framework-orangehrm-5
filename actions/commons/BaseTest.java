@@ -9,10 +9,13 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.Assert;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeSuite;
+import utils.FileReader;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.HashMap;
 import java.util.Random;
 
 public class BaseTest {
@@ -181,6 +184,10 @@ public class BaseTest {
         } catch (Exception e) {
             System.out.print(e.getMessage());
         }
+    }
+
+    public String getDataTest(String env, String info) throws FileNotFoundException {
+        return new FileReader().readYMLFile(GlobalConstants.UPLOAD_PATH + "dataTest.yml", env, info);
     }
 
 }
