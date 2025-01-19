@@ -14,5 +14,6 @@
     <orderEntry type="library" name="sourceDocs" level="project" />
     <orderEntry type="library" name="libAllure" level="project" />
     <orderEntry type="library" name="libSnakeYAML" level="project" />
+    <orderEntry type="library" name="SnakeYAML" level="project" />
   </component>
 </module>

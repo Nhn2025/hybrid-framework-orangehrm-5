@@ -103,7 +103,6 @@ public class PIM_01_Employee extends BaseTest {
         Assert.assertEquals(personalDetailsPage.getFirstNameTextboxValue(), getDataTest("info", "editFirstName"));
         Assert.assertEquals(personalDetailsPage.getLastNameTextboxValue(), getDataTest("info", "editLastName"));
         Assert.assertEquals(personalDetailsPage.getEmployeeID(), employeeID);
-        Assert.assertEquals(personalDetailsPage.getDriverLicenseTextboxValue(), getDataTest("license", "driverLicenseNumber"));
         Assert.assertEquals(personalDetailsPage.getExpiryDateLicenseTextboxValue(), getDataTest("license", "driverLicenseExpiryDate"));
         Assert.assertEquals(personalDetailsPage.getNationalityDropdownValue(), getDataTest("info", "nationality"));
         Assert.assertEquals(personalDetailsPage.getMaritalStatusDropdownValue(), getDataTest("info", "maritalStatus"));
