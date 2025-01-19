@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import pageUIs.orangeHRM.pim.employee.ReportToPUI;
 
-public class ReportToPO extends EmployeeTabsPO {
+public class ReportToPO extends SideBarTabsPO {
     private WebDriver driver;
 
     public ReportToPO(WebDriver driver) {

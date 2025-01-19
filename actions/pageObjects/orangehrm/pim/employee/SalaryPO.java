@@ -4,7 +4,7 @@ import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import pageUIs.orangeHRM.pim.employee.SalaryPUI;
 
-public class SalaryPO extends EmployeeTabsPO {
+public class SalaryPO extends SideBarTabsPO {
     private WebDriver driver;
 
     public SalaryPO(WebDriver driver) {

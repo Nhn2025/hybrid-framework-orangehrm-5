@@ -5,7 +5,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import pageUIs.orangeHRM.pim.employee.PersonalDetailsPUI;
 
-public class PersonalDetailsPO extends EmployeeTabsPO {
+public class PersonalDetailsPO extends SideBarTabsPO {
     private WebDriver driver;
 
     public PersonalDetailsPO(WebDriver driver) {

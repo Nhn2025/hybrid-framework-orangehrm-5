@@ -18,8 +18,8 @@ public class SideBarTabsPO extends EmployeeTabsPO {
 
     @Step("Click to PIM page")
     public EmployeeListPO openToPIMPage() {
-        waitForElementClickable(driver, DashboardPUI.PIM_LINK);
-        clickToElement(driver, DashboardPUI.PIM_LINK);
+        waitForElementClickable(driver, SideBarTabsPUI.PIM_LINK);
+        clickToElement(driver, SideBarTabsPUI.PIM_LINK);
         waitAllLoadingIconInvisible(driver);
         return PageGenerator.getEmployeeListPage(driver);
     }
