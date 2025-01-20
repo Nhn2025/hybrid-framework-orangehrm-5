@@ -58,7 +58,7 @@ public class Employee_10_Update_Salary_Details extends BaseTest {
 
     @Description("Update salary details")
     @Test
-    public void Employee_09_Update_Salary_Details() throws FileNotFoundException {
+    public void Employee_10_Update_Salary_Details() throws FileNotFoundException {
         salaryPage = personalDetailsPage.openSalaryPage();
 
         salaryPage.clickAddButtonAtAddSalaryComponent();

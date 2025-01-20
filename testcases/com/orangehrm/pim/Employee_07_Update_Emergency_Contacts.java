@@ -58,7 +58,7 @@ public class Employee_07_Update_Emergency_Contacts extends BaseTest {
 
     @Description("Update emergency contacts")
     @Test
-    public void Employee_06_Update_Emergency_Contacts() throws FileNotFoundException {
+    public void Employee_07_Update_Emergency_Contacts() throws FileNotFoundException {
         emergencyContactsPage = personalDetailsPage.openEmergencyContactsPage();
 
         emergencyContactsPage.clickAddButtonAtAssignedEmergencyContacts();

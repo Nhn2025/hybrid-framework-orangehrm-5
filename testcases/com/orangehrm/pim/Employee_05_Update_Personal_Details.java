@@ -57,7 +57,7 @@ public class Employee_05_Update_Personal_Details extends BaseTest {
 
     @Description("Update personal detail")
     @Test
-    public void Employee_04_Update_Personal_Detail() throws FileNotFoundException {
+    public void Employee_05_Update_Personal_Detail() throws FileNotFoundException {
         personalDetailsPage.openPersonalDetailPage();
 
         personalDetailsPage.enterToFirstNameTextbox(getDataTest("info", "editFirstName"));

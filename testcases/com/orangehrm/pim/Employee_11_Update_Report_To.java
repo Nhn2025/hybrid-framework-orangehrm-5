@@ -58,7 +58,7 @@ public class Employee_11_Update_Report_To extends BaseTest {
 
     @Description("Update report to")
     @Test
-    public void Employee_10_Update_Report_To() throws FileNotFoundException {
+    public void Employee_11_Update_Report_To() throws FileNotFoundException {
         reportToPage = personalDetailsPage.openReportToPage();
 
         reportToPage.clickAddAssignedSupervisorsButton();

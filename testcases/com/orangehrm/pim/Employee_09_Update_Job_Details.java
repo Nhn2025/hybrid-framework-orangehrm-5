@@ -58,7 +58,7 @@ public class Employee_09_Update_Job_Details extends BaseTest {
 
     @Description("Update job details")
     @Test
-    public void Employee_08_Update_Job_Details() throws FileNotFoundException {
+    public void Employee_09_Update_Job_Details() throws FileNotFoundException {
         jobPage = personalDetailsPage.openJobPage();
 
         jobPage.enterToJoinedDateTextbox(getDataTest("job", "joinedDate"));

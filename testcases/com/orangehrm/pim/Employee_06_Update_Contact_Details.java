@@ -58,7 +58,7 @@ public class Employee_06_Update_Contact_Details extends BaseTest {
 
     @Description("Update contact detail")
     @Test
-    public void Employee_05_Update_Contact_Detail() throws FileNotFoundException {
+    public void Employee_06_Update_Contact_Detail() throws FileNotFoundException {
         contactDetailsPage = personalDetailsPage.openContactDetailsPage();
 
         contactDetailsPage.enterToStreetTextbox(getDataTest("contact", "streetName"));

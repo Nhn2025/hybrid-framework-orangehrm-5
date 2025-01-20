@@ -57,7 +57,7 @@ public class Employee_03_Delete_Employee extends BaseTest {
 
     @Description("Delete employee")
     @Test
-    public void Employee_12_Delete_Employee() throws FileNotFoundException {
+    public void Employee_03_Delete_Employee() throws FileNotFoundException {
         employeeListPage = personalDetailsPage.openToPIMPage();
 
         employeeListPage.clickToNewRecordCheckbox(employeeID);

@@ -58,7 +58,7 @@ public class Employee_04_Upload_Avatar extends BaseTest {
 
     @Description("Upload avatar")
     @Test
-    public void Employee_03_Upload_Avatar() throws FileNotFoundException {
+    public void Employee_04_Upload_Avatar() throws FileNotFoundException {
         personalDetailsPage.clickToEmployeeAvatarImage();
 
         Dimension beforeUpload = personalDetailsPage.getAvatarSize();

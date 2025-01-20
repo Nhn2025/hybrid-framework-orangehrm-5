@@ -58,7 +58,7 @@ public class Employee_12_Update_Qualifications extends BaseTest {
 
     @Description("Update qualifications")
     @Test
-    public void Employee_11_Update_Qualifications() throws FileNotFoundException {
+    public void Employee_12_Update_Qualifications() throws FileNotFoundException {
         qualificationsPage = personalDetailsPage.openQualificationsPage();
 
         qualificationsPage.clickToAddWorkExperienceButton();

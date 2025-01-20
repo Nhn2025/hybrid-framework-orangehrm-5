@@ -58,7 +58,7 @@ public class Employee_08_Update_Assigned_Dependents extends BaseTest {
 
     @Description("Update assigned dependents")
     @Test
-    public void Employee_07_Update_Assigned_Dependents() throws FileNotFoundException {
+    public void Employee_08_Update_Assigned_Dependents() throws FileNotFoundException {
         assignedDependentsPage = personalDetailsPage.openAssignedDependentsPage();
 
         assignedDependentsPage.clickAddButtonAtAssignedDependents();
