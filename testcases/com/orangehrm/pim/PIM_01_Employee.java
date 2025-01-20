@@ -22,7 +22,7 @@ import java.io.FileNotFoundException;
 
 @Epic("Regression Tests")
 @Feature("Employee Tests")
-public class PIM_Employee extends BaseTest {
+public class PIM_01_Employee extends BaseTest {
     private WebDriver driver;
     private LoginPO loginPage;
     private DashboardPO dashboardPage;
