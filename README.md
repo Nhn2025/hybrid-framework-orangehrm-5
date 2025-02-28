@@ -33,16 +33,16 @@ Hybrid Framework for UI Automation Testing on **OrangeHRM Ver5** system. The pro
    java -cp "libs/*;bin" org.testng.TestNG -d test-output testng.xml
    ```
 
-## Running Tests Using testng.xml
+## Running Tests Using orangeHRM.xml
 
 To execute tests using the TestNG XML file, follow these steps:
 
 1. Open `testng.xml` and define the test suite and test classes.
 2. Run tests using one of the following methods:
    - **IntelliJ IDEA:**
-     - Right-click `testng.xml` and select **Run 'testng.xml'**.
+     - Right-click `orangeHRM.xml` and select **Run 'orangeHRM.xml'**.
    - **Eclipse:**
-     - Right-click `testng.xml` → **Run As** → **TestNG Suite**.
+     - Right-click `orangeHRM.xml` → **Run As** → **TestNG Suite**.
 
 ## Folder Structure
 
@@ -59,4 +59,6 @@ After running tests, open the Allure report using the command:
 
 ```sh
 allure serve allure-results
-``
+```
+
+
