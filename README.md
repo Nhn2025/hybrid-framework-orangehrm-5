@@ -24,10 +24,10 @@ Hybrid Framework for UI Automation Testing on **OrangeHRM Ver5** system. The pro
    - Start the server and ensure the application is accessible.
 3. Open the project in IntelliJ IDEA or Eclipse.
 4. Ensure required libraries are added to the project manually:
-   - **Selenium WebDriver 4.6.0** (`selenium-java-4.23.1.jar`)
-   - **TestNG 7.6.1** (`testng-6.14.3.jar`)
-   - **Allure Report 2.20.1** (`allure-2.29.0.jar`)
-   - **SnakeYAML 1.33** (`snakeyaml-2.3.jar`)
+   - **Selenium WebDriver** (`selenium-java-4.23.1.jar`)
+   - **TestNG** (`testng-6.14.3.jar`)
+   - **Allure Report** (`allure-2.29.0.jar`)
+   - **SnakeYAML** (`snakeyaml-2.3.jar`)
 5. Add the JAR files to the project's classpath.
    ```sh
    java -cp "libs/*;bin" org.testng.TestNG -d test-output testng.xml
